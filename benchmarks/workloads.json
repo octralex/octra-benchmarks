@@ -1,0 +1,32 @@
+{
+  "cases": [
+    {"algebraic_multiplicative_depth": 0, "case": "S-add", "ckks_extra_depth": 0, "logical_outputs": 1, "pvac_ct_ct_multiplications": 0},
+    {"algebraic_multiplicative_depth": 1, "case": "S-mul", "ckks_extra_depth": 1, "logical_outputs": 1, "pvac_ct_ct_multiplications": 1},
+    {"algebraic_multiplicative_depth": 1, "case": "V64", "ckks_extra_depth": 1, "logical_outputs": 64, "pvac_ct_ct_multiplications": 1},
+    {"algebraic_multiplicative_depth": 1, "case": "D64", "ckks_extra_depth": 1, "logical_outputs": 1, "pvac_ct_ct_multiplications": 64},
+    {"algebraic_multiplicative_depth": 2, "case": "P3", "ckks_extra_depth": 1, "logical_outputs": 1, "pvac_ct_ct_multiplications": 2},
+    {"algebraic_multiplicative_depth": 1, "case": "CH1", "ckks_extra_depth": 1, "logical_outputs": 1, "pvac_ct_ct_multiplications": 1},
+    {"algebraic_multiplicative_depth": 2, "case": "CH2", "ckks_extra_depth": 1, "logical_outputs": 1, "pvac_ct_ct_multiplications": 2},
+    {"algebraic_multiplicative_depth": 4, "case": "CH4", "ckks_extra_depth": 1, "logical_outputs": 1, "pvac_ct_ct_multiplications": 4},
+    {"algebraic_multiplicative_depth": 1, "case": "SQ1", "ckks_extra_depth": 1, "logical_outputs": 1, "pvac_ct_ct_multiplications": 1},
+    {"algebraic_multiplicative_depth": 2, "case": "SQ2", "ckks_extra_depth": 1, "logical_outputs": 1, "pvac_ct_ct_multiplications": 2},
+    {"algebraic_multiplicative_depth": 3, "case": "SQ3", "ckks_extra_depth": 1, "logical_outputs": 1, "pvac_ct_ct_multiplications": 3},
+    {"algebraic_multiplicative_depth": 0, "case": "I63-add", "input_domain": "unsigned 63-bit operands", "logical_outputs": 1, "result": "exact unwrapped sum below 2^64"},
+    {"algebraic_multiplicative_depth": 1, "case": "I63-mul", "input_domain": "unsigned 63-bit operands", "logical_outputs": 1, "result": "exact unwrapped product below 2^126"},
+    {"algebraic_multiplicative_depth": 0, "case": "F127-add", "input_domain": "canonical residues modulo 2^127-1", "logical_outputs": 1, "result": "canonical exact client residue"},
+    {"algebraic_multiplicative_depth": 1, "case": "F127-mul", "input_domain": "canonical residues modulo 2^127-1", "logical_outputs": 1, "result": "canonical exact client residue after full product"},
+    {"algebraic_multiplicative_depth": 1, "case": "D25-d1", "input_domain": "five common 25-bit factors, prefix length two", "logical_outputs": 1, "result": "exact left-fold product below 2^50"},
+    {"algebraic_multiplicative_depth": 2, "case": "D25-d2", "input_domain": "the same five factors, prefix length three", "logical_outputs": 1, "result": "exact left-fold product below 2^75"},
+    {"algebraic_multiplicative_depth": 4, "case": "D25-d4", "input_domain": "the same five factors, all five", "logical_outputs": 1, "result": "exact left-fold product below 2^125"}
+  ],
+  "ckks_tolerance": "abs(error)<=1e-6+1e-8*abs(reference)",
+  "ckks_wide_scope": "no reviewed exact-integer adapter included",
+  "cubic": "((3x+2)x+5)x+7: two ct-ct multiplications, one public multiplication and three public additions",
+  "domain": "small programs remain below 32768, wide programs use their declared exact domains",
+  "layouts": {
+    "openfhe": "small packed V64/D64, wide coefficient-digit and plaintext-CRT candidates with complete client reconstruction",
+    "pvac": "small V64 multi-slot and D64 scalar, wrapped default encryption, native full-field wide operations",
+    "tfhe": "small scalar radix operations, wide narrow-input encryption with public zero extension before multiplication"
+  },
+  "terminal_contract": "canonical exact clear answer at the authorized decrypting client, decoding and final reduction included in direct E2E, no server canonical-residue panel"
+}

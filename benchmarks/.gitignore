@@ -1,0 +1,17 @@
+build/
+sources/
+third-party/
+state/
+.build-tools/
+openfhe-git/
+pvac-git/
+openfhe-development-*/
+tfhe-rs-*/
+*.tar.gz
+tfhe-harness/target/
+__pycache__/
+results/*
+!results/tables.json
+!results/samples.json
+!results/published-representation-selection.json
+!results/macos/

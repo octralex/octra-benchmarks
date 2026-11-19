@@ -1,0 +1,7 @@
+lite_node 8f785a93a4e7392a0f3e65674f9de89854d33dbc
+g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+pubkey_bytes 3071533
+fresh_ct_bytes 43168
+add_ct_bytes 86282
+mul_ct_bytes 35102
+dec_mul 109876463 dec_add 1234656

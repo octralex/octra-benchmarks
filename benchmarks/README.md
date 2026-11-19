@@ -1,513 +1,498 @@
-# (PoC HFHE against everything) fhe benchmark suite 
+# (PoC HFHE against everything) fhe benchmark suite
 
-we use a testbed for full evaluation and comparison of all parameters and performance in our internal workflow, we recently decided to make it completely open source
+we use a testbed for full evaluation and comparison of all parameters and performance in our internal workflow, it is completely open source
 
-we compare pvac_hfhe in its current proof of concept version which does not claim prod speed,it is provided as-is for hypothesis testing, bounty programs, and academic work we also compare an early research PoC against production optimized implementations from OpenFHE (some tests may be incomplete)
+this is the second version of the suite. the first one compared native operations of each scheme on a cloud droplet and estimated the bit level numbers from gate counts. people pointed out (fairly) that this is not a like for like comparison, so we rebuilt it: every scheme now runs the same programs on the same machine, every output is decrypted and checked, and tfhe is measured with real tfhe-rs integer operations instead of an estimate
 
-pvac_hfhe (even the earliest concept) outperforms prod implemented rlwe in scalar arithmetic (multiplication is 2.9 up to 14.3x faster, addition is 10 -87x faster, dot prod is 7.5x faster, ct size is 6 - 85x smaller for fresh encryptions, compared to bit level fhe (tfhe/fhew) the speedup reaches insane *789000x  for 64 bit operations, basically we compared against fhew to achieve the same good academic presentation as the early FHEW PoC
+we compare pvac_hfhe in its current proof of concept version which does not claim prod speed, it is provided as-is for hypothesis testing, bounty programs, and academic work. we compare it against production optimized implementations from OpenFHE and tfhe-rs. the numbers describe the poc at the pinned commit and nothing newer
 
-*can't be compared but it's worth noting for fun
+short version, one worker: one fresh pvac_hfhe multiplication takes 2.63 ms on small inputs, 2.72 ms on the sampled 63 bit inputs and 2.72 ms on the sampled 127 bit field elements. BGV is ahead on one multiplication at all three widths (1.25x faster, 1.29x faster and 1.29x faster), CKKS is 2.78x slower and BFV is 6.10x slower on small inputs. on the ladder of 25 bit factors pvac_hfhe is ahead of BGV at depth 1 and 2 (BGV is 4.39x slower and 1.89x slower there, in contexts configured for depth 4) and behind at depth 4. tfhe-rs integers are 712x slower on the 16 bit multiplication and 86600x slower on the field multiplication (the tfhe-rs field multiplication is timed on one input pair, (p - 1) * (p - 1), in 6 key sessions over the two passes, and the factor uses pvac_hfhe on the same pair). BGV is ahead of tfhe-rs by a similar factor, so that gap is about native arithmetic against bit level integers and not about pvac_hfhe. the wide results are exact answers at the client, see section 3. a fresh pvac_hfhe ciphertext is 1/6.0 to 1/18 the size of a depth 1 scalar rlwe ciphertext. it loses on depth, on packed vector work, on encryption and on keygen, and the ciphertext grows at greater multiplicative depth (the first multiplication gives a smaller ciphertext, the following ones grow it). all of that is in the tables below
 
-for this work we use a DigitalOcean droplet with the following parameters:
+the main tables come from one dedicated linux server:
 
-- cpu: DO Premium AMD 8 core 2.0GHz
-- ram: 32GB
-- os: Ubuntu 24.04 LTS
-- compiler: g++ -O3 -march=native
-- pvac_hfhe: research poc (unoptimized)
+- cpu: AMD EPYC 8024P, 8 cores / 16 threads, avx-512 and pclmulqdq, bare metal (no virtualization)
+- ram: 64GB
+- os: Ubuntu 24.04, kernel 6.8
+- compiler: g++ 13.3.0, rustc 1.99.1
+- flags: -O3 -march=native (pvac, openfhe adapter), release + target-cpu=native with the avx512 feature (tfhe-rs)
+- placement: every measured process is pinned with taskset to distinct physical cores (one core for the 1 worker profile, four for the 4 worker profile), no smt siblings
+- pvac_hfhe: research poc at 071b0e9, single threaded, clmul kernel
+
+the first run of this version was made on an Apple M4 Pro laptop with the small programs only. its table is kept in section 11. numbers from the two machines are never divided by each other
 
 ## schemes
 
-| scheme | type | impl | security |
-|--------|------|------|----------|
-| BFV | rlwe, exact int | OpenFHE 1.2 | 128-bit |
-| BGV | rlwe, exact int | OpenFHE 1.2 | 128-bit |
-| CKKS | rlwe, approximate | OpenFHE 1.2 | 128-bit |
-| TFHE | bit-level | OpenFHE 1.2 | 128-bit |
-| FHEW | bit-level, ginx | OpenFHE 1.2 | 128-bit |
-| PVAC_HFHE | lpn, exact uint64 | poc/research | 128-bit (est) |
+| scheme | type | impl | parameters |
+|--------|------|------|------------|
+| BFV | rlwe, exact int | OpenFHE 1.6.1 | HEStd_128_classic, library selected |
+| BGV | rlwe, exact int | OpenFHE 1.6.1 | HEStd_128_classic, library selected |
+| CKKS | rlwe, approximate | OpenFHE 1.6.1 | HEStd_128_classic, library selected |
+| TFHE | radix integers, FheUint16 to FheUint256 | tfhe-rs 1.8.2 | PARAM_MESSAGE_2_CARRY_2_KS_PBS_TUNIFORM_2M128 |
+| PVAC_HFHE | lpn, exact field mod 2^127 - 1 | poc/research | default Params, security not established |
+
+there is no "128-bit" label next to pvac_hfhe anymore. the lattice schemes run standard parameter sets chosen by their libraries, and we did not validate those estimates ourselves. OpenFHE is the stock build without hexl. the tfhe-rs parameter name carries a 2^-128 bound on the failure probability of one bootstrap, that is a correctness bound and not a security level or a bound for a whole program. pvac_hfhe has no finished security analysis, so this is a speed comparison and not an equal security comparison
+
+## what is compared
+
+there are two panels. in both every scheme computes the same thing and every output is decrypted and compared with an independent integer oracle
+
+### small panel
+
+inputs are small nonnegative integers and every intermediate value stays below 32768, so ordinary integer arithmetic agrees with the pvac field, with BFV/BGV mod 65537 and with a 16 bit tfhe integer. CKKS runs the same functions approximately and has to land within 1e-6 + 1e-8 * |expected|
+
+| id | program | layout |
+|----|---------|--------|
+| add / mul | one ct + ct, one ct * ct | scalar |
+| vec64 | 64 independent products | pvac: one 64 slot ct, rlwe: one packed ct, tfhe: 64 integers |
+| dot64 | sum of 64 products, one encrypted result | pvac and tfhe: scalar cts, rlwe: packed + 6 rotations |
+| poly | ((3x + 2)x + 5)x + 7, public coefficients | 2 ct * ct, 1 ct * const, 3 ct + const |
+| chain d | x * y^d, both encrypted, d = 1, 2, 4 | d sequential ct * ct |
+| square d | x^(2^d), d = 1, 2, 3 | d squarings (pvac uses ct_square) |
+
+bfv and bgv contexts use the depth of the program. ckks also reserves one level for output accuracy and rescales after each ct * ct
+
+### wide panel
+
+exact arithmetic on wide values. CKKS is not in this panel
+
+| id | program | inputs |
+|----|---------|--------|
+| 63 bit add / mul | x + y and x * y as integers | x, y below 2^63 |
+| field add / mul | (x + y) mod p and (x * y) mod p, p = 2^127 - 1 | x, y below p |
+| ladder d | product of d + 1 factors as an integer, d = 1, 2, 4 | factors below 2^25 |
+
+the answer that is checked is the exact result at the client. pvac_hfhe works in the field mod p directly. BFV and BGV carry a wide value as digits in the coefficients of one ciphertext, the server adds or multiplies the polynomials, and the client puts the digits back together and reduces mod p. tfhe-rs widens the inputs before a multiplication so that the full product is kept, and the client reduces mod p. that client step is counted in the decrypt time of every scheme and not in the evaluation time
+
+for every wide program and worker profile a short calibration run on separate inputs picked the BFV and BGV encoding with the lowest evaluation time out of binary digits, larger digits and 30 bit crt channels, and for BFV at depth also the key switching method. the digit encodings fit a wide value in one ciphertext, the crt encoding needs several. the tables use that choice. one worker:
+
+| program | BGV encoding, key switching | BFV encoding, key switching | tfhe-rs containers |
+|---|---|---|---|
+| 63 bit add | radix 32 digits, HYBRID | radix 32 digits, HYBRID | FheUint64 |
+| 63 bit mul | radix 32 digits, HYBRID | binary digits, HYBRID | FheUint64 widened to FheUint128 |
+| field add | radix 32 digits, HYBRID | binary digits, HYBRID | FheUint128 |
+| field mul | radix 32 digits, HYBRID | radix 32 digits, HYBRID | FheUint128 widened to FheUint256 |
+| ladder d1 | radix 4 digits, HYBRID | radix 4 digits, BV | FheUint32 widened to FheUint128 |
+| ladder d2 | binary digits, HYBRID | binary digits, BV | FheUint32 widened to FheUint128 |
+| ladder d4 | radix 4 digits, HYBRID | radix 4 digits, BV | FheUint32 widened to FheUint128 |
+
+four workers:
+
+| program | BGV encoding, key switching | BFV encoding, key switching | tfhe-rs containers |
+|---|---|---|---|
+| 63 bit add | radix 32 digits, HYBRID | radix 32 digits, HYBRID | FheUint64 |
+| 63 bit mul | radix 32 digits, HYBRID | binary digits, HYBRID | FheUint64 widened to FheUint128 |
+| field add | radix 32 digits, HYBRID | binary digits, HYBRID | FheUint128 |
+| field mul | radix 32 digits, HYBRID | binary digits, HYBRID | FheUint128 widened to FheUint256 |
+| ladder d1 | radix 4 digits, HYBRID | binary digits, BV | FheUint32 widened to FheUint128 |
+| ladder d2 | radix 4 digits, HYBRID | radix 4 digits, BV | FheUint32 widened to FheUint128 |
+| ladder d4 | binary digits, HYBRID | radix 4 digits, BV | FheUint32 widened to FheUint128 |
+
+the 30 bit crt encoding of the 63 bit and field multiplication could not be generated for BGV by the library (parameter generation fails), the other BGV encodings of those programs work
+
+every rung of the ladder runs in fresh rlwe contexts configured for depth 4, also d1 and d2, the same way a deployment has to fix its depth in advance. pvac_hfhe pays per multiplication. for a single multiplication in a context sized for one multiplication see section 1, there BGV takes 2.11 ms against 12.0 ms here in the depth 4 context
+
+### sampling
+
+every number is a median over two full passes of the suite (the second pass in reverse order) with 3 fresh keys per pass, 540 key sessions per pass in 180 cells, 170 of them used in the tables (where two rlwe encodings of a wide program were run, only the one picked for evaluation time is shown). the timings of one cell share those keys, they are repeated measurements and not independent draws. additions faster than 0.1 ms are timed in batches of 1000 and reported as the median of the per call batch means, everything else is timed one call at a time. the evaluation medians of the two passes differ by at most 2.4% on any of the 170 cells, measured relative to their mean, and by 0.22% on the median cell. that sentence is about evaluation time only, setup, encryption, decryption and memory vary more between passes
+
+correctness is checked on every input of every program for every scheme (6 per program, 8 for the field programs). timing uses 6 inputs, except for the slow tfhe cells below. a ratio between two schemes always uses the inputs that were timed for both of them
+
+### timed inputs that are not all six, small panel
+
+| scheme | program | workers | timed inputs | timings per pass |
+|---|---|---|---|---|
+| TFHE-rs 16 bit | V64 | 1 | input 0 | 3 |
+| TFHE-rs 16 bit | D64 | 1 | input 0 | 3 |
+| TFHE-rs 16 bit | P3 | 1 | inputs 0, 1 | 6 |
+| TFHE-rs 16 bit | CH2 | 1 | inputs 0, 1 | 6 |
+| TFHE-rs 16 bit | CH4 | 1 | inputs 0, 1 | 6 |
+| TFHE-rs 16 bit | SQ2 | 1 | inputs 0, 1 | 6 |
+| TFHE-rs 16 bit | SQ3 | 1 | inputs 0, 1 | 6 |
+| TFHE-rs 16 bit | V64 | 4 | inputs 0, 1 | 6 |
+| TFHE-rs 16 bit | D64 | 4 | inputs 0, 1 | 6 |
+| TFHE-rs 16 bit | CH4 | 4 | inputs 0, 1 | 6 |
+| TFHE-rs 64 bit | S-mul | 1 | inputs 0, 1 | 6 |
+| TFHE-rs 64 bit | S-mul | 4 | inputs 0, 1 | 6 |
+
+### timed inputs that are not all six, wide panel
+
+| scheme | program | workers | timed inputs | timings per pass |
+|---|---|---|---|---|
+| TFHE-rs | 63 bit mul | 1 | inputs 2, 4 | 6 |
+| TFHE-rs | field add | 1 | inputs 2, 6 | 6 |
+| TFHE-rs | field mul | 1 | input 2 | 3 |
+| TFHE-rs | ladder d1 | 1 | inputs 2, 4 | 6 |
+| TFHE-rs | ladder d2 | 1 | inputs 2, 4 | 6 |
+| TFHE-rs | ladder d4 | 1 | input 2 | 3 |
+| TFHE-rs | 63 bit mul | 4 | inputs 2, 4 | 6 |
+| TFHE-rs | field mul | 4 | input 2 | 3 |
+| TFHE-rs | ladder d1 | 4 | inputs 2, 4 | 6 |
+| TFHE-rs | ladder d2 | 4 | inputs 2, 4 | 6 |
+| TFHE-rs | ladder d4 | 4 | inputs 2, 4 | 6 |
 
 ---
 
-### 0. PVAC_HFHE (PoC) vs TFHE-rs (64 bit integers)
+### 0. native arithmetic vs TFHE-rs (real integer operations)
 
-| op | PVAC_HFHE (PoC) | TFHE-rs cpu | TFHE-rs gpu | vs cpu | vs gpu |
-|----|-----------|-------------|-------------|--------|--------|
-| add | 0.012 ms | 109 ms | 8.97 ms | 9083x | 747x |
-| sub | 0.012 ms | 109 ms | 8.97 ms | 9083x | 747x |
-| mul | 2.47 ms | 402 ms | 31.9 ms | 163x | 13x |
+one worker:
 
-source: tfhe-rs benchmarks
+| op | PVAC_HFHE (PoC) | BGV | TFHE-rs 16 bit | TFHE-rs 64 bit | 16 bit vs pvac | 16 bit vs bgv | 64 bit vs pvac | 64 bit vs bgv |
+|---|---|---|---|---|---|---|---|---|
+| add | 0.0138 ms | 0.00751 ms | 268 ms | 1080 ms | 19400x | 35700x | 78300x | 144000x |
+| mul | 2.63 ms | 2.11 ms | 1870 ms | 29200 ms | 712x | 887x | 11100x | 13800x |
+
+four workers (pvac_hfhe is single threaded and does not change):
+
+| op | PVAC_HFHE (PoC) | BGV | TFHE-rs 16 bit | TFHE-rs 64 bit | 16 bit vs pvac | 16 bit vs bgv | 64 bit vs pvac | 64 bit vs bgv |
+|---|---|---|---|---|---|---|---|---|
+| add | 0.0138 ms | 0.00756 ms | 107 ms | 463 ms | 7780x | 14200x | 33600x | 61300x |
+| mul | 2.62 ms | 1.19 ms | 596 ms | 7980 ms | 227x | 503x | 3040x | 6710x |
+
+BGV is in this table on purpose. every scheme that does arithmetic natively is far ahead of bit level integers on add and mul, this is not a pvac_hfhe property
+
+the 64 bit column is a 64 bit container holding the same small inputs, it shows how tfhe cost grows with width. the wide panel below has real 63 bit and 127 bit inputs. the 64 bit multiplication is timed on inputs 0 and 1 only
+
+tfhe-rs scales with workers and with the hardware. tfhe-rs publishes its own numbers for larger servers and gpus, we do not divide numbers from two different machines
+
+the old "789000x" number is gone. it was nand latency times a gate count, not a measurement
+
+tfhe-rs runs programmable bootstrapping on the server inside these arithmetic operations (for carries and digit products), with no key holder involved. that cost is part of the tfhe-rs timings in this suite. a bootstrap on its own was not measured, and a widening cast of a fresh unsigned ciphertext does not need one. this is what gives tfhe unlimited depth, comparisons and table lookups. pvac_hfhe and the rlwe schemes as measured here do not have that. this table compares the cost of one arithmetic operation, not the capability
 
 ## 1. scalar mul (ct * ct)
 
-| scheme | mode | mul (ms) | vs pvac_hfhe |
-|--------|------|----------|---------|
-| PVAC_HFHE | scalar | 2.47 | 1.0x |
-| BFV | shallow (d = 1) | 7.23 | 2.9x slower |
-| BFV | leveled (d = 5) | 18.28 | 7.4x slower |
-| BGV | leveled | 17.61 | 7.1x slower |
-| CKKS | leveled | 35.23 | 14.3x slower |
-
-### BFV plaintext modulus
-
-| mod | bits | ring | mul (ms) | ct_size |
-|-----|------|------|----------|---------|
-| 65537 | 17 | 8192 | 8.81 | 384 KB |
-| 786433 | 20 | 8192 | 8.12 | 384 KB |
-| 2013265921 | 31 | 16384 | 19.75 | 1024 KB |
-
-btw, BFV requires ntt friendly primes, pvac_hfhe works with arbitrary uint64
+| scheme | ring | mul (ms) | vs pvac_hfhe |
+|---|---|---|---|
+| BGV | 8192 | 2.11 | 1.25x faster |
+| PVAC_HFHE | - | 2.63 | 1.00x |
+| CKKS | 16384 | 7.31 | 2.78x slower |
+| BFV | 16384 | 16.1 | 6.10x slower |
+| TFHE-rs 16 bit | - | 1870 | 712x slower |
 
 ---
 
 ## 2. scalar add (ct + ct)
 
-| scheme | add (ms) | vs pvac |
-|--------|----------|---------|
-| PVAC_HFHE | 0.012 | 1.0x |
-| BFV | 0.124 | 10x slower |
-| BGV | 0.552 | 46x slower |
-| CKKS | 1.050 | 87x slower |
+| scheme | ring | add (ms) | vs pvac_hfhe |
+|---|---|---|---|
+| BGV | 4096 | 0.00751 | 1.84x faster |
+| BFV | 8192 | 0.0133 | 1.04x faster |
+| CKKS | 8192 | 0.0133 | 1.04x faster |
+| PVAC_HFHE | - | 0.0138 | 1.00x |
+| TFHE-rs 16 bit | - | 268 | 19400x slower |
+
+addition is basically free for everything except tfhe
 
 ---
 
-## 3. ciphertext size
+## 3. wide values
+
+evaluation time in ms, one worker:
+
+| program | PVAC_HFHE | BGV | BFV | TFHE-rs | bgv vs pvac | bfv vs pvac | tfhe vs pvac |
+|---|---|---|---|---|---|---|---|
+| 63 bit add | 0.0137 | 0.00759 | 0.0134 | 1080 | 1.81x faster | 1.02x faster | 78500x slower |
+| 63 bit mul | 2.72 | 2.11 | 16.1 | 59300 | 1.29x faster | 5.91x slower | 21800x slower |
+| field add | 0.0137 | 0.00757 | 0.0134 | 2180 | 1.81x faster | 1.02x faster | 159000x slower |
+| field mul | 2.72 | 2.11 | 16.0 | 236000 | 1.29x faster | 5.89x slower | 86600x slower |
+| ladder d1 | 2.74 | 12.0 | 24.7 | 15500 | 4.39x slower | 9.01x slower | 5650x slower |
+| ladder d2 | 13.0 | 24.4 | 49.2 | 47900 | 1.89x slower | 3.80x slower | 3690x slower |
+| ladder d4 | 143 | 41.2 | 98.7 | 147000 | 3.47x faster | 1.45x faster | 1030x slower |
+
+four workers:
+
+| program | PVAC_HFHE | BGV | BFV | TFHE-rs | bgv vs pvac | bfv vs pvac | tfhe vs pvac |
+|---|---|---|---|---|---|---|---|
+| 63 bit add | 0.0137 | 0.00764 | 0.0135 | 463 | 1.80x faster | 1.02x faster | 33800x slower |
+| 63 bit mul | 2.73 | 1.18 | 6.39 | 16300 | 2.32x faster | 2.34x slower | 5970x slower |
+| field add | 0.0138 | 0.00762 | 0.0134 | 946 | 1.81x faster | 1.03x faster | 68600x slower |
+| field mul | 2.72 | 1.18 | 6.39 | 63200 | 2.31x faster | 2.35x slower | 23300x slower |
+| ladder d1 | 2.72 | 4.66 | 8.18 | 4300 | 1.71x slower | 3.00x slower | 1580x slower |
+| ladder d2 | 12.9 | 9.40 | 16.4 | 13100 | 1.38x faster | 1.27x slower | 1010x slower |
+| ladder d4 | 143 | 18.0 | 32.9 | 40100 | 7.96x faster | 4.35x faster | 279x slower |
+
+the tfhe-rs field multiplication is timed on one input pair, (p - 1) * (p - 1), in 6 key sessions over the two passes, and the factor uses pvac_hfhe on the same pair
+
+pvac_hfhe multiplication on the sampled inputs, one worker: 2.63 ms (small), 2.72 ms (63 bit), 2.72 ms (127 bit field). BGV does not slow down with width either, because the digits of a wide value fit in one ciphertext. so on one wide multiplication the picture is the same as on a small one
+
+what the rlwe columns do and do not show: they compute the integer result and the client reduces it. that gives the right field answer for any program made of additions and multiplications, as long as the digits do not overflow the plaintext modulus and the ring. every further multiplication makes the digits larger, so the parameters have to be chosen for the whole program in advance. pvac_hfhe keeps a reduced field element in every ciphertext. this suite measures up to depth 4 on 25 bit factors and one multiplication on full field elements, nothing deeper on wide values for any scheme
+
+output ciphertext size:
+
+| program | PVAC_HFHE | BGV | BFV | TFHE-rs |
+|---|---|---|---|---|
+| 63 bit mul | 35 KB | 257 KB | 513 KB | 1031 KB |
+| field mul | 35 KB | 257 KB | 513 KB | 2063 KB |
+| ladder d1 | 35 KB | 1281 KB | 1025 KB | 1031 KB |
+| ladder d2 | 137 KB | 1025 KB | 1025 KB | 1031 KB |
+| ladder d4 | 1371 KB | 513 KB | 1025 KB | 1031 KB |
+
+end to end (encrypt inputs, evaluate, decrypt and reduce), ms, with the rlwe encodings that were picked for evaluation time:
+
+| program | PVAC_HFHE | BGV | BFV | TFHE-rs |
+|---|---|---|---|---|
+| 63 bit mul | 214 | 8.20 | 31.6 | 59300 |
+| field mul | 214 | 8.22 | 31.5 | 236000 |
+| ladder d4 | 672 | 89.2 | 158 | 147000 |
+
+---
+
+## 4. ciphertext size
+
+all sizes are real serialized bytes (binary), KB = 1024 bytes and MB = 1024 KB. the pvac serializer is a benchmark format that includes every dynamic payload, not a production wire format
 
 ### fresh ct
 
-| scheme | mode | ct_size | vs pvac |
-|--------|------|---------|---------|
-| PVAC_HFHE | scalar | 42 KB | 1.0x |
-| BFV | shallow | 256 KB | 6x larger |
-| BFV | leveled | 1024 KB | 24x larger |
-| BGV | leveled | 1792 KB | 43x larger |
-| CKKS | leveled | 3584 KB | 85x larger |
+| scheme | context | ct_size | vs pvac |
+|---|---|---|---|
+| PVAC_HFHE | any | 43 KB | 1.00x |
+| BGV | depth 1 | 257 KB | 6.04x larger |
+| BFV | depth 1 | 513 KB | 12.1x larger |
+| CKKS | depth 1 | 769 KB | 18.1x larger |
+| BGV | depth 4 | 1281 KB | 30.1x larger |
+| BFV | depth 4 | 769 KB | 18.1x larger |
+| CKKS | depth 4 | 1537 KB | 36.1x larger |
+| TFHE-rs 16 bit | - | 129 KB | 3.03x larger |
+| TFHE-rs 64 bit | - | 516 KB | 12.1x larger |
 
-### PVAC_HFHE ct growth with depth
+### PVAC_HFHE ct growth with depth (chain)
 
-| depth | time (ms) | ct_size | growth |
-|-------|-----------|---------|--------|
-| d0 | - | 42 KB | 1.0x |
-| d1 | 2.68 | 34 KB | 0.8x |
-| d2 | 10.34 | 136 KB | 3.2x |
-| d3 | 31.46 | 441 KB | 10.5x |
-| d4 | 97.11 | 1359 KB | 32x |
-| d5 | 285.83 | 4112 KB | 98x |
+| depth | total time (ms) | ct_size | growth |
+|---|---|---|---|
+| d0 | - | 43 KB | 1.00x |
+| d1 | 2.63 | 35 KB | 0.814x |
+| d2 | 12.6 | 137 KB | 3.23x |
+| d4 | 141 | 1371 KB | 32.2x |
 
-hfhe ct exceeds bfv at d4.
+rlwe output after the same chain at d1, d2, d4: BFV 513 KB / 513 KB / 769 KB, BGV 257 KB / 513 KB / 513 KB, CKKS 513 KB / 513 KB / 513 KB
 
 ---
 
-## 4. depth
+## 5. depth
+
+total time for the whole program, not the last multiplication only
+
+### chain (x * y^d)
 
 | depth | PVAC_HFHE | BFV | BGV | CKKS | fastest |
-|-------|------|-----|-----|------|---------|
-| d1 | 2.68 | 19.54 | 17.40 | 35.85 | PVAC 7.3x |
-| d2 | 10.34 | 14.38 | 15.11 | 31.22 | PVAC 1.4x |
-| d3 | 31.46 | 13.98 | 14.39 | 30.71 | BFV 2.3x |
-| d4 | 97.11 | 13.84 | 11.10 | 21.83 | BGV 8.7x |
-| d5 | 285.83 | 11.37 | 9.50 | 18.93 | BGV 30x |
+|---|---|---|---|---|---|
+| d1 | 2.63 | 16.1 | 2.11 | 7.30 | BGV 1.25x |
+| d2 | 12.6 | 32.1 | 13.2 | 16.4 | PVAC 1.05x |
+| d4 | 141 | 92.5 | 41.1 | 45.1 | BGV 3.44x |
 
-PoC: exponential degradation,  rlwe: near constant via modulus switching etc
+### repeated squaring (x^(2^d))
 
----
+| depth | PVAC_HFHE | BFV | BGV | CKKS | fastest |
+|---|---|---|---|---|---|
+| d1 | 1.96 | 16.1 | 2.11 | 7.30 | PVAC 1.08x |
+| d2 | 11.2 | 32.1 | 13.0 | 16.3 | PVAC 1.16x |
+| d3 | 139 | 69.4 | 24.3 | 29.5 | BGV 5.73x |
 
-## 5. dot product (scalar vectors)
-
-| n | PVAC_HFHE | BFV | BGV | CKKS | PVAC_HFHE speedup |
-|---|------|-----|-----|------|--------------|
-| 4 | 9.61 | 73.24 | 74.55 | 156.53 | 7.6x |
-| 8 | 19.08 | 149.68 | 152.55 | 308.24 | 7.8x |
-| 16 | 38.49 | 297.02 | 294.65 | 605.52 | 7.7x |
-| 32 | 80.27 | 598.94 | 626.17 | 1218.69 | 7.5x |
+PoC: cost and size grow with depth, rlwe: close to linear in depth for these small circuits. the fastest column names the fastest of the four and how far pvac_hfhe is from it (or how far ahead). here every rlwe context is sized for its own depth, unlike the ladder in section 3
 
 ---
 
-## 6. polynomial
+## 6. vectors
 
-f(x) = 3x^3 + 2x^2 + 5x + 7 (depth-3)
+### 64 independent products
+
+| scheme | layout | time (ms) | vs pvac |
+|---|---|---|---|
+| PVAC_HFHE | one 64 slot ct | 4.69 | 1.00x |
+| BGV | one packed ct | 2.11 | 2.22x faster |
+| CKKS | one packed ct | 7.29 | 1.56x slower |
+| BFV | one packed ct | 16.1 | 3.42x slower |
+| TFHE-rs 16 bit | 64 integers | 121000 | 25800x slower |
+
+the pvac_hfhe 64 slot encryption uses a different noise generator from the scalar path, it takes 1930 ms to encrypt both inputs and 1860 ms to decrypt the result
+
+### dot product of 64 (one encrypted sum)
+
+| scheme | layout | time (ms) | vs pvac |
+|---|---|---|---|
+| PVAC_HFHE | 128 scalar cts | 172 | 1.00x |
+| BGV | packed, 6 rotations | 14.1 | 12.2x faster |
+| CKKS | packed, 6 rotations | 28.3 | 6.07x faster |
+| BFV | packed, 6 rotations | 44.8 | 3.84x faster |
+| TFHE-rs 16 bit | 128 integers | 126000 | 737x slower |
+
+the first version of this suite gave rlwe one ciphertext per element here, which is not how anyone uses it. with packing rlwe wins the dot product clearly. the pvac_hfhe dot product result is 2211 KB
+
+---
+
+## 7. polynomial
+
+f(x) = ((3x + 2)x + 5)x + 7, public coefficients, depth 2
 
 | scheme | time (ms) | vs pvac |
-|--------|-----------|---------|
-| PVAC_HFHE | 62.88 | 1.0x |
-| BFV | 71.72 | 1.1x slower |
-| BGV | 92.79 | 1.5x slower |
-| CKKS | 182.35 | 2.9x slower |
+|---|---|---|
+| PVAC_HFHE | 12.7 | 1.00x |
+| BGV | 15.1 | 1.19x slower |
+| CKKS | 16.9 | 1.33x slower |
+| BFV | 35.5 | 2.80x slower |
+| TFHE-rs 16 bit | 4910 | 388x slower |
+
+the first version encrypted the coefficients too (5 ct * ct). that variant is not in this table
 
 ---
 
-## 7. bit-level fhe
+## 8. four workers
 
-### nand gate
+pvac_hfhe is single threaded, the others use their own thread pools
 
-| scheme | mode | keygen (ms) | nand (ms) |
-|--------|------|-------------|-----------|
-| FHEW | ginx | 374 | 79.30 |
-| TFHE | std128 | 440 | 81.71 |
-| binfhe_ap | ap | 785 | 102.56 |
-
-### derived 64-bit mul
-
-(estimated nand latency x 24576 gates (schoolbook andno optimization))
-
-| scheme | 64-bit mul | vs PVAC_HFHE |
-|--------|------------|---------|
-| PVAC | 2.47 ms | 1.0x |
-| FHEW | 32.48 min | 789000x slower |
-| TFHE | 33.47 min | 813000x slower |
-| binfhe_ap | 42.01 min | 1020000x slower |
-
-it may not be very indicative because it solves different problems but we decided to include it to display as honestly as possible the current situation for the Poc hfhe versus the product scheme with 10+ y of research
+| program | PVAC_HFHE | BFV | BGV | CKKS | TFHE-rs 16 bit |
+|---|---|---|---|---|---|
+| mul | 2.62 | 6.46 | 1.19 | 3.17 | 596 |
+| dot64 | 171 | 19.8 | 8.25 | 13.9 | 39500 |
+| poly | 12.7 | 15.2 | 7.53 | 7.03 | 1680 |
+| chain d4 | 141 | 32.1 | 17.7 | 17.8 | 2380 |
+| square d3 | 138 | 24.1 | 10.9 | 11.6 | 1780 |
 
 ---
 
-## 8. simd / batch throughput
+## 9. keygen / encrypt / decrypt
 
-### rlwe simd
-
-| scheme | slots | mul (ms) | per slot (us) |
-|--------|-------|----------|---------------|
-| BFV | 8192 | 17.85 | 2.18 |
-| CKKS | 4096 | 35.49 | 8.66 |
-
-### pvac HFHE parallel
-
-| ops | seq (ms) | par (ms) | speedup | throughput |
-|-----|----------|----------|---------|------------|
-| 512 | 1391 | 189 | 7.4x | 2711 ops/s |
-| 2048 | 4963 | 795 | 6.2x | 2575 ops/s |
-| 8192 | 19904 | 2608 | 7.6x | 3141 ops/s |
-
-### comparison
-
-| mode | ops/s | relative |
-|------|-------|----------|
-| BFV simd (8192 slots) | ~459,000 | 146x faster |
-| PVAC_HFHE parallel (8 threads) | ~3,141 | 1.0x |
-
----
-
-## 9. keygen / encrypt
+keygen is the full setup for one multiplication (context and all required keys), the median of six setups. encrypt is half the time to encrypt the two inputs of one multiplication. decrypt is the time to decrypt the result of that multiplication, not a fresh ciphertext
 
 | scheme | keygen (ms) | encrypt (ms) | decrypt (ms) |
-|--------|-------------|--------------|--------------|
-| BFV | 38.43 | 10.91 | 2.54 |
-| BGV | 62.03 | 12.70 | 3.48 |
-| CKKS | 143.61 | 23.34 | 10.37 |
-| PVAC_HFHE | 858.95 | 84.11 | 13.38 |
+|---|---|---|---|
+| BGV | 11.1 | 2.16 | 0.464 |
+| CKKS | 31.4 | 5.17 | 6.95 |
+| BFV | 31.6 | 6.02 | 0.803 |
+| PVAC_HFHE | 907 | 91.2 | 29.1 |
+| TFHE-rs 16 bit | 2170 | 0.533 | 0.00412 |
 
-pvac_hfhe keygen 22x slower, encrypt 8x slower, for proof of concept, this is ok, it happens because of the cumbersome approach to initialization, but it also has its advantages (for example, it only needs to be called once from the wallet with the private key).
+pvac_hfhe keygen is 28.7x to 81.6x slower than rlwe and encrypt is 15.1x to 42.2x slower. pvac_hfhe encryption needs the secret key (it is a secret key scheme), OpenFHE encrypts with a public key, tfhe-rs with the client key
+
+### end to end (encrypt inputs, evaluate, decrypt)
+
+| program | PVAC_HFHE | BFV | BGV | CKKS | TFHE-rs 16 bit |
+|---|---|---|---|---|---|
+| mul | 214 | 28.9 | 6.89 | 24.7 | 1880 |
+| poly | 148 | 42.3 | 21.2 | 29.9 | 4900 |
+| chain d4 | 397 | 109 | 55.2 | 67.1 | 7560 |
+| dot64 | 13700 | 57.6 | 18.9 | 45.9 | 126000 |
+
+end to end pvac_hfhe is behind rlwe on everything, encryption dominates
 
 ---
 
-## 10. key sizes
+## 10. key sizes and memory
 
-| scheme | pk_size | ct_size |
-|--------|---------|---------|
-| PVAC_HFHE | 8 MB | 42 KB |
-| BFV | - | 1024 KB |
-| BGV | - | 1792 KB |
-| CKKS | - | 3584 KB |
+| scheme | public key | evaluation keys | median process peak |
+|---|---|---|---|
+| PVAC_HFHE | 16.4 MB | none | 53.4 MB |
+| BGV | 0.251 MB | 0.751 MB relin | 39.0 MB |
+| BFV | 0.501 MB | 2.00 MB relin | 39.0 MB |
+| CKKS | 0.751 MB | 2.50 MB relin | 39.0 MB |
+| TFHE-rs | - | 172 MB server key | 408 MB |
+
+sizes for the one multiplication context. the packed dot product adds rotation keys: BGV 4.51 MB, BFV 12.0 MB, CKKS 15.0 MB. memory is the median of the peak memory of the six processes that ran the multiplication, each including its own keygen, not evaluation only
+
+the pvac_hfhe public key above is what the serializer of this poc writes, it stores the public matrix uncompressed. the pvac library inside octra-labs/lite_node at 8f785a9 writes a key of the same parameter set in 2.93 MB (3071533 bytes). we measured that separately, the program, the command and its output are in extras/node_key_probe, it is not produced by this suite. the pvac_hfhe key does not grow with depth and there are no evaluation keys. the rlwe keys can grow with the depth setting (some neighbouring settings give the same size) and every rotation adds a key
 
 ---
 
-## mini-summary 
+## 11. the laptop run
+
+the small panel on an Apple M4 Pro laptop (macOS 27.2, Apple clang 21.0.0, -O3 -mcpu=native, pmull kernel for pvac, no cpu pinning), run of 2026-11-16, evaluation time in ms, one worker:
+
+| program | PVAC_HFHE | BFV | BGV | CKKS | TFHE-rs 16 bit |
+|---|---|---|---|---|---|
+| add | 0.00409 | 0.00518 | 0.00275 | 0.00522 | 221 |
+| mul | 1.23 | 7.38 | 0.811 | 3.25 | 1520 |
+| vec64 | 1.79 | 7.38 | 0.814 | 3.26 | 98500 |
+| dot64 | 84.0 | 20.5 | 5.79 | 13.6 | 103000 |
+| poly | 5.85 | 16.5 | 7.00 | 7.37 | 4000 |
+| chain d1 | 1.24 | 7.37 | 0.810 | 3.26 | 1530 |
+| chain d2 | 5.90 | 14.8 | 6.07 | 7.25 | 3050 |
+| chain d4 | 67.1 | 45.2 | 19.4 | 19.4 | 6090 |
+| square d1 | 0.902 | 7.39 | 0.810 | 3.25 | 1520 |
+| square d2 | 5.20 | 14.7 | 5.77 | 7.20 | 3030 |
+| square d3 | 65.6 | 33.6 | 11.1 | 12.8 | 4550 |
+
+on that machine a fresh pvac_hfhe ciphertext is 42 KB (the size of a fresh ciphertext varies a little from one encryption to the next) and one multiplication takes 1.23 ms. the order of the five schemes on scalar multiplication is the same on both machines. it differs on add, chain d4, square d1. do not divide a laptop number by a server number
+
+---
+
+## mini-summary
 
 ### pvac_hfhe advantages
 
-| metric | improvement |
-|--------|-------------|
-| scalar mul vs bfv shallow | 2.9x faster |
-| scalar mul vs bfv leveled | 7.4x faster |
-| scalar mul vs ckks | 14.3x faster |
-| scalar add | 10-87x faster |
-| dot product | 7.5-7.8x faster |
-| ct size (fresh) | 6-85x smaller |
-| vs bit-level fhe | 789,000x faster |
+| metric | result |
+|---|---|
+| scalar mul vs bfv | 6.10x faster |
+| scalar mul vs ckks | 2.78x faster |
+| polynomial (depth 2) vs bfv / bgv / ckks | 2.80x faster / 1.19x faster / 1.33x faster |
+| ct size (fresh) vs rlwe depth 1 scalar | 6.04x to 18.1x smaller |
+| evaluation keys | none needed |
+| tfhe-rs 16 bit mul, 1 worker / 4 workers | 712x faster / 227x faster |
+| tfhe-rs 64 bit container mul, 1 worker / 4 workers | 11100x faster / 3040x faster |
+| multiplication time across widths (small / 63 bit / 127 bit) | 2.63 ms / 2.72 ms / 2.72 ms |
+| ladder d1 / d2 vs bgv in a depth 4 context | 4.39x faster / 1.89x faster |
+| field mul vs bfv | 5.89x faster |
+| field mul vs tfhe-rs on one input pair, 1 worker / 4 workers | 86600x faster / 23300x faster |
 
 ### pvac_hfhe limitations
-(only valid for PoC HFHE due to cumbersome debugging sys)
+(valid for PoC HFHE)
 
 | metric | limitation |
-|--------|------------|
-| deep circuits (d >= 3) | 2-30x slower |
-| ct growth | exponential |
-| simd throughput | 146x slower |
-| keygen | 22x slower |
-| encrypt | 8x slower |
-
+|---|---|
+| scalar mul vs bgv | 1.25x slower |
+| chain d4 / square d3 vs the best rlwe | 3.44x / 5.73x slower |
+| ct growth at chain d4 | 32.2x the fresh size |
+| packed dot product vs bfv / bgv / ckks | 3.84x slower / 12.2x slower / 6.07x slower |
+| keygen vs rlwe | 28.7x to 81.6x slower |
+| encrypt vs rlwe | 15.1x to 42.2x slower |
+| end to end mul vs rlwe | 7.42x to 31.1x slower |
+| threads | single threaded |
+| public key | 16.4 MB |
+| refresh | only by decrypt + encrypt with the secret key, no public bootstrapping |
+| security | no finished analysis, no equal security claim |
+| field mul vs bgv | 1.29x slower |
+| ladder d4 vs bgv / bfv | 3.47x slower / 1.45x slower |
+| four workers, mul vs bgv | 2.21x slower |
 
 ## methodology
 
-- 128-bit security
-- timing: steady_clock
-- stats: mean of n runs with warmup
-- verif: correctness checked
-- ckks accuracy: err < 0.01
+- one machine per table, same programs, same expected outputs for every scheme
+- every measured output is decrypted and compared with an independent integer oracle. pvac is compared on the full field element. the wide rlwe and tfhe outputs are compared both before and after the reduction at the client. a wrong output fails the run
+- timing: steady_clock / Instant, evaluation only unless stated. end to end is measured directly, not summed from phases
+- stats: median. per pass and cell 3 fresh keys x 6 inputs x 5 repetitions with one warmup. cells slower than 2 s use 3 keys x 2 inputs x 1 repetition, slower than 60 s use 3 keys x 1 input x 1 repetition
+- two passes, second in reverse order with schemes interleaved, quiet machine gate before every session (load, thermal sensors, swap, and on linux no virtualization)
+- sizes: real binary serialization for every scheme
+- memory: peak of the whole process reported by the process itself
 
 ### caveats
 
-1. pvac-hfhe is an early PoC with no optimizations at all (there are only SIMD instructions for matrices and other small things)
-2. openfhe is production optimized (10+ years)
-3. bit-level 64 bit mul is derived estimate
-4. pvac security based on lpn (less studied than RLWE btw, but we are doing our best to close that gap)
+1. pvac-hfhe is an early PoC with almost no optimizations and no threading. newer pvac code exists and is not measured here
+2. openfhe and tfhe-rs are production optimized
+3. the wide panel covers additions, one multiplication and a ladder up to depth 4. it does not measure deep programs on wide values, comparisons or any other bit level logic for any scheme
+4. two machines, one table each. expect different ratios on other hardware
+5. no equal security claim. pvac security is based on lpn plus a custom mask (less studied than RLWE, we are doing our best to close that gap)
+6. pvac_hfhe is a secret key scheme. in this poc a ciphertext is refreshed by decrypt + encrypt with the secret key. tfhe-rs bootstraps on the server as part of its arithmetic and that cost is inside its timings, ckks can bootstrap. nothing here measures a refresh on its own for any scheme
+7. no proof of correct evaluation or encryption is measured for any scheme
 
 ---
 
-to run the tests, you'll need a whole bunch of stuff, but it's potentially worth it, you'll need a full installation of OpenFHE, a build of Léo Ducas's FHEW, and you'll also need to compile pvac
+## the shipped results
 
-so if you have a few hours of free time and you love C++ like we do, this might be of interest
+results/tables.json and results/samples.json are our linux run of 2026-11-18 and 2026-11-19 on the server above, made with harness identity b9192ea6224bd51a19e788c9c4cd82ab6a4e4e03831c8f1892e3a940c86d9f5c (the identity covers the harness sources, the tool list that prepare.sh writes on that machine and the built binaries, the source part alone is e4cb2b832dd475362335cf94898a78c36c7f0c80cb433a7d64bb6751208a4233). since that run only punctuation changed in the harness (four output strings in fixtures.py, wide-candidates.json and two_pass_controls.py), no measured code path. results/published-representation-selection.json is a copy of the calibration that picked the BFV and BGV encodings, with the sha256 of the original file of the run. the harness does not read it. where the fastest encoding for evaluation and the fastest end to end differ, both were run and both are in the data, the tables above use the first one
+
+results/macos/tables.json and results/macos/samples.json are the laptop run of 2026-11-16, made with harness identity de645cef684a0416a1531d4380574b39bff8b34da681279ab6ee6e57a2c0af7e, an earlier state of this harness without the wide panel
+
+samples.json holds, for both passes, the evaluation, decryption, encryption, end to end and setup timings, the output sizes and the peak memory of every key session. `python3 verify_tables.py` rebuilds count, median, quartiles, interquartile range, minimum and maximum of those seven quantities for every cell and compares them with tables.json. it does not rebuild the other fields of tables.json. `python3 verify_tables.py --self-test` shows that it rejects nan values, duplicate rows or sessions, truncated samples and changed numbers. the verifier reads results/, to check the laptop data copy the two files from results/macos over them
 
 ## run
 
+on linux you need a bare metal x86-64 machine with pclmulqdq, g++, cmake, cargo, git, curl, taskset, readelf, ldd and objdump. on macOS you need apple silicon, uv, cargo, clang and git
+
 ```bash
-make
-./bench -all
-cat results/all.csv
+bash prepare.sh
+RUN_MAIN=1 bash resume.sh
 ```
 
+prepare.sh fetches the three pinned sources and builds everything. resume.sh does not build, it runs the correctness matrix, the calibration, the pilot, both passes, the tables, the sample export and the verification, and it continues after an interruption: a finished key session or correctness record is reused when it carries the current harness identity. a record left by another build stops the run, so remove the run directories under results/ after changing or rebuilding anything. a new run does not read the shipped files in results/, it overwrites tables.json and samples.json at its end. on the server above the whole thing took about 39 hours, most of it tfhe-rs. the timed stages refuse to start on a virtual machine
 
-## here are the results you will get locally:
-```
-root@test-fhe:~/fhe_bench/benchmarks# mkdir -p results && make && ./bench -all
-g++ -std=c++17 -O3 -march=native -fopenmp -o bench main.cpp -I/usr/local/include/openfhe -I/usr/local/include/openfhe/core -I/usr/local/include/openfhe/pke -I/usr/local/include/openfhe/binfhe -I../pvac/include -L/usr/local/lib -lOPENFHEpke -lOPENFHEbinfhe -lOPENFHEcore -pthread
-fhe benchmarks
-________________________________________
-targets: bfv bgv binfhe ckks fhew pvac tfhe 
-output: results/all.csv
-omp_threads = 8
+if systemd-inhibit is refused for your user, put a wrapper named systemd-inhibit earlier in PATH that takes the lock with sudo and runs the command as you
 
-bfv (scalar, mod 65537)
-________________________________________
-security = 128-bit, plaintext = mod 65537 (17-bit)
-keygen = 38.43 ms
-encrypt = 10.91 ms, decrypt = 2.54 ms
-verify: 7*6 = 42, 7+6 = 13 (ok)
-mul = 18.28 ms, add = 0.12 ms
-depth: d1 = 19.54ms d2 = 14.38ms d3 = 13.98ms d4 = 13.84ms d5 = 11.37ms 
-dot: dot4 = 73.24ms dot8 = 149.68ms dot16 = 297.02ms dot32 = 598.94ms 
-polynomial = 71.72 ms
-ct_size_est = 1024 KB (polys = 2, towers = 4, ring = 16384)
-
-bfv (simd)
-________________________________________
-slots = 8192
-rotate_keygen = 61.68 ms
-mul = 17.85 ms (2.18 us/slot)
-dot8192 = 133.05 ms
-
-bfv plaintext modulus comparison
-________________________________________
-
-mod = 17bit (65537)
-ring_dim = 8192
-mul = 8.81 ms (stddev = 4.28)
-ct_size_est = 384 KB (towers = 3, ring = 8192)
-
-mod = 20bit (786433)
-ring_dim = 8192
-mul = 8.12 ms (stddev = 2.50)
-ct_size_est = 384 KB (towers = 3, ring = 8192)
-
-mod = 31bit (2013265921)
-ring_dim = 16384
-mul = 19.75 ms (stddev = 2.59)
-ct_size_est = 1024 KB (towers = 4, ring = 16384)
-
-note: BFV requires NTT-friendly primes (p-1 divisible by 2*ring_dim)
-PVAC has no such constraint - works with arbitrary uint64
-
-bfv (shallow, depth=1)
-________________________________________
-ring_dim = 8192
-verify: 7*6 = 42
-mul = 7.23 ms (stddev = 5.17)
-ct_size_est = 256 KB
-
-bgv (scalar, mod 65537)
-________________________________________
-security = 128-bit, plaintext = mod 65537 (17-bit)
-keygen = 62.03 ms
-encrypt = 12.70 ms, decrypt = 3.48 ms
-verify: 7*6 = 42, 7+6 = 13 (ok)
-mul = 17.61 ms, add = 0.55 ms
-depth: d1 = 17.40ms d2 = 15.11ms d3 = 14.39ms d4 = 11.10ms d5 = 9.50ms 
-dot: dot4 = 74.55ms dot8 = 152.55ms dot16 = 294.65ms dot32 = 626.17ms 
-polynomial = 92.79 ms
-ct_size_est = 1792 KB (polys = 2, towers = 7, ring = 16384)
-
-ckks (scalar, approximate)
-________________________________________
-security = 128-bit, type = approximate
-keygen = 143.61 ms
-encrypt = 23.34 ms, decrypt = 10.37 ms
-verify: 7*6 = 42.00 (err=0.00), 7+6 = 13.00 (err=0.00) (ok)
-mul = 35.23 ms, add = 1.05 ms
-depth: d1 = 35.85ms d2 = 31.22ms d3 = 30.71ms d4 = 21.83ms d5 = 18.93ms 
-dot: dot4 = 156.53ms dot8 = 308.23ms dot16 = 605.52ms dot32 = 1218.69ms 
-polynomial = 182.35 ms
-ct_size_est = 3584 KB (polys = 2, towers = 7, ring = 32768)
-
-ckks (simd)
-________________________________________
-slots = 4096
-rotate_keygen = 231.50 ms
-mul = 35.49 ms (8.66 us/slot)
-dot4096 = 373.64 ms
-
-tfhe (bit-level, bootstrap per gate)
-________________________________________
-security = 128-bit
-keygen = 439.77 ms
-encrypt_1bit = 20.06 us, decrypt_1bit = 2.58 us
-nand = 81.71 ms
-mul_64bit_derived = 33.47 min
-add_64bit_derived = 26.15 sec
-
-fhew (bit-level, ginx mode)
-________________________________________
-security = 128-bit, mode = ginx
-keygen = 373.99 ms
-nand = 79.30 ms
-mul_64bit_derived = 32.48 min
-
-binfhe_ap (openfhe binfhe, ap mode)
-________________________________________
-security = 128-bit, mode = ap
-keygen = 785.11 ms
-nand = 102.56 ms
-mul_64bit_derived = 42.01 min
-
-pvac (scalar, exact uint64, poc)
-________________________________________
-keygen = 858.95 ms
-security = 128-bit (lpn), lpn_n = 4096
-impl = pclmul t_us = 1787.30
-encrypt = 84.11 ms, decrypt = 13.38 ms
-verify: 7*6 = 42, 7+6 = 13
-mul = 2.47 ms, add = 0.01 ms
-depth (time/ct_size): d1=2.68ms/34KB(ok) d2=10.34ms/136KB(ok) d3=31.46ms/441KB(ok) d4=97.11ms/1359KB(ok) d5=285.83ms/4112KB(ok) 
-dot: dot4 = 9.61ms dot8 = 19.08ms dot16 = 38.49ms dot32 = 80.27ms 
-polynomial = 62.88 ms
-ct_size = 42 KB, pk_size = 8 MB
-
-pvac (parallel throughput)
-________________________________________
-threads = 8
-ops = 512: seq = 1391.03ms, par = 188.86ms, speedup = 7.37x, throughput = 2710.99 ops/s
-ops = 2048: seq = 4962.62ms, par = 795.21ms, speedup = 6.24x, throughput = 2575.41 ops/s
-ops = 8192: seq = 19904.02ms, par = 2607.98ms, speedup = 7.63x, throughput = 3141.13 ops/s
-
-________________________________________
-done. saved to results/all.csv
-root@test-fhe:~/fhe_bench/benchmarks# cat results/all.csv
-scheme,mode,op,mean,stddev,unit,n
-bfv,scalar,keygen,38.4269,1.83478,ms,10
-bfv,scalar,encrypt,10.912,0.358104,ms,50
-bfv,scalar,decrypt,2.53961,0.187732,ms,50
-bfv,scalar,mul,18.2788,4.11367,ms,50
-bfv,scalar,add,0.124013,0.0111941,ms,50
-bfv,scalar,depth1,19.5356,0,ms,1
-bfv,scalar,depth2,14.3763,0,ms,1
-bfv,scalar,depth3,13.981,0,ms,1
-bfv,scalar,depth4,13.8372,0,ms,1
-bfv,scalar,depth5,11.3745,0,ms,1
-bfv,scalar,dot4,73.2356,7.1367,ms,5
-bfv,scalar,dot8,149.682,9.82773,ms,5
-bfv,scalar,dot16,297.019,10.7301,ms,5
-bfv,scalar,dot32,598.944,25.8472,ms,5
-bfv,scalar,polynomial,71.7218,2.35397,ms,10
-bfv,scalar,ct_size_est_bytes,1.04858e+06,0,bytes,1
-bfv,simd,rotate_keygen,61.6808,0,ms,1
-bfv,simd,mul,17.8548,0.586675,ms,50
-bfv,simd,mul_per_slot_us,2.17954,0,us,1
-bfv,simd,dot8192,133.047,1.53564,ms,10
-bfv,17bit,mul,8.80741,4.28474,ms,50
-bfv,17bit,ct_size_est_bytes,393216,0,bytes,1
-bfv,20bit,mul,8.11649,2.49567,ms,50
-bfv,20bit,ct_size_est_bytes,393216,0,bytes,1
-bfv,31bit,mul,19.7503,2.59334,ms,50
-bfv,31bit,ct_size_est_bytes,1.04858e+06,0,bytes,1
-bfv,shallow,mul,7.22595,5.16919,ms,50
-bfv,shallow,ct_size_est_bytes,262144,0,bytes,1
-bgv,scalar,keygen,62.0255,2.51092,ms,10
-bgv,scalar,encrypt,12.695,0.425174,ms,50
-bgv,scalar,decrypt,3.47912,0.23724,ms,50
-bgv,scalar,mul,17.612,1.09816,ms,50
-bgv,scalar,add,0.552388,0.0399797,ms,50
-bgv,scalar,depth1,17.3975,0,ms,1
-bgv,scalar,depth2,15.109,0,ms,1
-bgv,scalar,depth3,14.388,0,ms,1
-bgv,scalar,depth4,11.1001,0,ms,1
-bgv,scalar,depth5,9.50312,0,ms,1
-bgv,scalar,dot4,74.5541,1.91863,ms,5
-bgv,scalar,dot8,152.552,2.41426,ms,5
-bgv,scalar,dot16,294.647,7.66063,ms,5
-bgv,scalar,dot32,626.165,13.8713,ms,5
-bgv,scalar,polynomial,92.7947,5.97436,ms,10
-bgv,scalar,ct_size_est_bytes,1.83501e+06,0,bytes,1
-ckks,scalar,keygen,143.613,7.88688,ms,10
-ckks,scalar,encrypt,23.3378,1.16429,ms,50
-ckks,scalar,decrypt,10.3669,0.990674,ms,50
-ckks,scalar,mul,35.2345,3.5964,ms,50
-ckks,scalar,add,1.04964,0.0663965,ms,50
-ckks,scalar,depth1,35.8472,0,ms,1
-ckks,scalar,depth2,31.2208,0,ms,1
-ckks,scalar,depth3,30.7127,0,ms,1
-ckks,scalar,depth4,21.8297,0,ms,1
-ckks,scalar,depth5,18.9339,0,ms,1
-ckks,scalar,dot4,156.526,6.91078,ms,5
-ckks,scalar,dot8,308.235,8.8257,ms,5
-ckks,scalar,dot16,605.517,4.35161,ms,5
-ckks,scalar,dot32,1218.69,29.8511,ms,5
-ckks,scalar,polynomial,182.349,3.26154,ms,10
-ckks,scalar,ct_size_est_bytes,3.67002e+06,0,bytes,1
-ckks,simd,rotate_keygen,231.5,0,ms,1
-ckks,simd,mul,35.4894,3.35441,ms,50
-ckks,simd,mul_per_slot_us,8.66441,0,us,1
-ckks,simd,dot4096,373.639,16.3547,ms,10
-tfhe,bit,keygen,439.773,879.51,ms,5
-tfhe,bit,encrypt_1bit,20.0579,6.83268,us,50
-tfhe,bit,decrypt_1bit,2.58356,0.549856,us,50
-tfhe,bit,nand,81.708,2.85233,ms,50
-tfhe,bit,mul_64bit_derived,2.00806e+06,0,ms,1
-tfhe,bit,add_64bit_derived,26146.6,0,ms,1
-fhew,bit,keygen,373.992,747.932,ms,5
-fhew,bit,nand,79.2976,0.768636,ms,50
-fhew,bit,mul_64bit_derived,1.94882e+06,0,ms,1
-binfhe_ap,bit,keygen,785.106,1570.16,ms,5
-binfhe_ap,bit,nand,102.564,1.69785,ms,50
-binfhe_ap,bit,mul_64bit_derived,2.5206e+06,0,ms,1
-pvac,scalar,keygen,858.953,16.2382,ms,10
-pvac,scalar,encrypt,84.1074,2.07639,ms,50
-pvac,scalar,decrypt,13.3761,0.180103,ms,50
-pvac,scalar,mul,2.47403,0.133738,ms,50
-pvac,scalar,add,0.0121177,0.00245914,ms,50
-pvac,scalar,depth1,2.68092,0,ms,1
-pvac,scalar,depth1_ct_bytes,34880,0,bytes,1
-pvac,scalar,depth2,10.3428,0,ms,1
-pvac,scalar,depth2_ct_bytes,139280,0,bytes,1
-pvac,scalar,depth3,31.457,0,ms,1
-pvac,scalar,depth3_ct_bytes,452480,0,bytes,1
-pvac,scalar,depth4,97.1119,0,ms,1
-pvac,scalar,depth4_ct_bytes,1.39208e+06,0,bytes,1
-pvac,scalar,depth5,285.832,0,ms,1
-pvac,scalar,depth5_ct_bytes,4.21088e+06,0,bytes,1
-pvac,scalar,dot4,9.61315,0.324681,ms,5
-pvac,scalar,dot8,19.076,0.364868,ms,5
-pvac,scalar,dot16,38.4917,0.924917,ms,5
-pvac,scalar,dot32,80.2705,0.708586,ms,5
-pvac,scalar,polynomial,62.8789,4.02088,ms,10
-pvac,scalar,ct_size_bytes,43280,0,bytes,1
-pvac,scalar,pk_size_bytes,8.38861e+06,0,bytes,1
-pvac,parallel,mul_512_seq_ms,1391.03,0,ms,1
-pvac,parallel,mul_512_par_ms,188.861,0,ms,1
-pvac,parallel,mul_512_throughput,2710.99,0,ops_per_sec,1
-pvac,parallel,mul_2048_seq_ms,4962.62,0,ms,1
-pvac,parallel,mul_2048_par_ms,795.212,0,ms,1
-pvac,parallel,mul_2048_throughput,2575.41,0,ops_per_sec,1
-pvac,parallel,mul_8192_seq_ms,19904,0,ms,1
-pvac,parallel,mul_8192_par_ms,2607.98,0,ms,1
-pvac,parallel,mul_8192_throughput,3141.13,0,ops_per_sec,1
-```
+the pvac adapter is built from the pinned commit 071b0e9 that prepare.sh fetches, not from the include directory of this checkout. editing include/ does not change what is benchmarked

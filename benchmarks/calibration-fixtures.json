@@ -1,0 +1,252 @@
+[
+  {
+    "calibration": true,
+    "case": "I63-add",
+    "encoding": "canonical unsigned decimal strings",
+    "expected": [
+      "7613785852379393979"
+    ],
+    "fixture_id": 0,
+    "lifted_expected": "7613785852379393979",
+    "wide": true,
+    "x": [
+      "2798535713808977361"
+    ],
+    "y": [
+      "4815250138570416618"
+    ]
+  },
+  {
+    "calibration": true,
+    "case": "I63-add",
+    "encoding": "canonical unsigned decimal strings",
+    "expected": [
+      "8065567583220201821"
+    ],
+    "fixture_id": 1,
+    "lifted_expected": "8065567583220201821",
+    "wide": true,
+    "x": [
+      "1375787956487944009"
+    ],
+    "y": [
+      "6689779626732257812"
+    ]
+  },
+  {
+    "calibration": true,
+    "case": "I63-mul",
+    "encoding": "canonical unsigned decimal strings",
+    "expected": [
+      "4765559285392623913543278400466676075"
+    ],
+    "fixture_id": 0,
+    "lifted_expected": "4765559285392623913543278400466676075",
+    "wide": true,
+    "x": [
+      "1604163575769355425"
+    ],
+    "y": [
+      "2970743979838256779"
+    ]
+  },
+  {
+    "calibration": true,
+    "case": "I63-mul",
+    "encoding": "canonical unsigned decimal strings",
+    "expected": [
+      "3008848925921432188805932441641678600"
+    ],
+    "fixture_id": 1,
+    "lifted_expected": "3008848925921432188805932441641678600",
+    "wide": true,
+    "x": [
+      "328355461246606285"
+    ],
+    "y": [
+      "9163389317474097960"
+    ]
+  },
+  {
+    "calibration": true,
+    "case": "F127-add",
+    "encoding": "canonical unsigned decimal strings",
+    "expected": [
+      "97142457679127369063687748045502835557"
+    ],
+    "fixture_id": 0,
+    "lifted_expected": "97142457679127369063687748045502835557",
+    "wide": true,
+    "x": [
+      "64864009551559076479052287133593278841"
+    ],
+    "y": [
+      "32278448127568292584635460911909556716"
+    ]
+  },
+  {
+    "calibration": true,
+    "case": "F127-add",
+    "encoding": "canonical unsigned decimal strings",
+    "expected": [
+      "6111928183759698581211983277115283801"
+    ],
+    "fixture_id": 1,
+    "lifted_expected": "176253111644228930312899286992999389528",
+    "wide": true,
+    "x": [
+      "64089891960335276794606244208743385181"
+    ],
+    "y": [
+      "112163219683893653518293042784256004347"
+    ]
+  },
+  {
+    "calibration": true,
+    "case": "F127-mul",
+    "encoding": "canonical unsigned decimal strings",
+    "expected": [
+      "143739390324337453220293428893034545859"
+    ],
+    "fixture_id": 0,
+    "lifted_expected": "3170434404011423699735606021985772171659913220597054319362304372067459033428",
+    "wide": true,
+    "x": [
+      "121085008225964357048286130671843985851"
+    ],
+    "y": [
+      "26183542045889582433602350686542269628"
+    ]
+  },
+  {
+    "calibration": true,
+    "case": "F127-mul",
+    "encoding": "canonical unsigned decimal strings",
+    "expected": [
+      "76816012674719926455398975210094208647"
+    ],
+    "fixture_id": 1,
+    "lifted_expected": "2749593460556872040097878132749092995350813385893322831059703463740002107006",
+    "wide": true,
+    "x": [
+      "34730909830923981682903468788941305479"
+    ],
+    "y": [
+      "79168483461630115651827302047729405714"
+    ]
+  },
+  {
+    "calibration": true,
+    "case": "D25-d1",
+    "encoding": "canonical unsigned decimal strings",
+    "expected": [
+      "647755542493402"
+    ],
+    "fixture_id": 0,
+    "lifted_expected": "647755542493402",
+    "wide": true,
+    "x": [
+      "23827961",
+      "27184682",
+      "15590328",
+      "5219441",
+      "25147541"
+    ],
+    "y": []
+  },
+  {
+    "calibration": true,
+    "case": "D25-d1",
+    "encoding": "canonical unsigned decimal strings",
+    "expected": [
+      "170960437763629"
+    ],
+    "fixture_id": 1,
+    "lifted_expected": "170960437763629",
+    "wide": true,
+    "x": [
+      "7443977",
+      "22966277",
+      "23606988",
+      "22708456",
+      "10673959"
+    ],
+    "y": []
+  },
+  {
+    "calibration": true,
+    "case": "D25-d2",
+    "encoding": "canonical unsigned decimal strings",
+    "expected": [
+      "10098721371290075015856"
+    ],
+    "fixture_id": 0,
+    "lifted_expected": "10098721371290075015856",
+    "wide": true,
+    "x": [
+      "23827961",
+      "27184682",
+      "15590328",
+      "5219441",
+      "25147541"
+    ],
+    "y": []
+  },
+  {
+    "calibration": true,
+    "case": "D25-d2",
+    "encoding": "canonical unsigned decimal strings",
+    "expected": [
+      "4035861002760736639452"
+    ],
+    "fixture_id": 1,
+    "lifted_expected": "4035861002760736639452",
+    "wide": true,
+    "x": [
+      "7443977",
+      "22966277",
+      "23606988",
+      "22708456",
+      "10673959"
+    ],
+    "y": []
+  },
+  {
+    "calibration": true,
+    "case": "D25-d4",
+    "encoding": "canonical unsigned decimal strings",
+    "expected": [
+      "1325518848274087226127667158945876336"
+    ],
+    "fixture_id": 0,
+    "lifted_expected": "1325518848274087226127667158945876336",
+    "wide": true,
+    "x": [
+      "23827961",
+      "27184682",
+      "15590328",
+      "5219441",
+      "25147541"
+    ],
+    "y": []
+  },
+  {
+    "calibration": true,
+    "case": "D25-d4",
+    "encoding": "canonical unsigned decimal strings",
+    "expected": [
+      "978248830388258166239198723711637408"
+    ],
+    "fixture_id": 1,
+    "lifted_expected": "978248830388258166239198723711637408",
+    "wide": true,
+    "x": [
+      "7443977",
+      "22966277",
+      "23606988",
+      "22708456",
+      "10673959"
+    ],
+    "y": []
+  }
+]

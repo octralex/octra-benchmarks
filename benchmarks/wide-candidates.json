@@ -1,0 +1,542 @@
+{
+  "calibration_fixtures": "calibration-fixtures.json, disjoint seeds from final fixtures",
+  "cases": {
+    "D25-d1": [
+      {
+        "coefficient_bound": 25,
+        "coefficients_per_input": 25,
+        "context_coefficient_bound": 390625,
+        "context_degree_bound": 120,
+        "context_multiplicative_depth": 4,
+        "default_key_switch": "AUTO",
+        "degree_bound": 48,
+        "key_switch_candidates": {
+          "bfv": [
+            "HYBRID",
+            "BV"
+          ],
+          "bgv": [
+            "HYBRID"
+          ]
+        },
+        "native_admission": "pending",
+        "num_large_digits": 0,
+        "plaintext_modulus": 786433,
+        "positive_centered_decode_required": true,
+        "radix": 2,
+        "representation": "coef-binary"
+      },
+      {
+        "coefficient_bound": 117,
+        "coefficients_per_input": 13,
+        "context_coefficient_bound": 6940323,
+        "context_degree_bound": 60,
+        "context_multiplicative_depth": 4,
+        "default_key_switch": "AUTO",
+        "degree_bound": 24,
+        "key_switch_candidates": {
+          "bfv": [
+            "HYBRID",
+            "BV"
+          ],
+          "bgv": [
+            "HYBRID"
+          ]
+        },
+        "native_admission": "pending",
+        "num_large_digits": 0,
+        "plaintext_modulus": 16777213,
+        "positive_centered_decode_required": true,
+        "radix": 4,
+        "representation": "coef-radix"
+      },
+      {
+        "capacity": "1427247763155044947592358980815426846827008617",
+        "channels": 5,
+        "context_multiplicative_depth": 4,
+        "default_key_switch": "AUTO",
+        "key_switch_candidates": {
+          "bfv": [
+            "HYBRID",
+            "BV"
+          ],
+          "bgv": [
+            "HYBRID"
+          ]
+        },
+        "lifted_bound": "42535289526864684581082189018171441151",
+        "native_admission": "pending",
+        "num_large_digits": 0,
+        "plaintext_moduli": [
+          1073741827,
+          1073741831,
+          1073741833,
+          1073741839,
+          1073741843
+        ],
+        "representation": "crt30"
+      }
+    ],
+    "D25-d2": [
+      {
+        "coefficient_bound": 625,
+        "coefficients_per_input": 25,
+        "context_coefficient_bound": 390625,
+        "context_degree_bound": 120,
+        "context_multiplicative_depth": 4,
+        "default_key_switch": "AUTO",
+        "degree_bound": 72,
+        "key_switch_candidates": {
+          "bfv": [
+            "HYBRID",
+            "BV"
+          ],
+          "bgv": [
+            "HYBRID"
+          ]
+        },
+        "native_admission": "pending",
+        "num_large_digits": 0,
+        "plaintext_modulus": 786433,
+        "positive_centered_decode_required": true,
+        "radix": 2,
+        "representation": "coef-binary"
+      },
+      {
+        "coefficient_bound": 4563,
+        "coefficients_per_input": 13,
+        "context_coefficient_bound": 6940323,
+        "context_degree_bound": 60,
+        "context_multiplicative_depth": 4,
+        "default_key_switch": "AUTO",
+        "degree_bound": 36,
+        "key_switch_candidates": {
+          "bfv": [
+            "HYBRID",
+            "BV"
+          ],
+          "bgv": [
+            "HYBRID"
+          ]
+        },
+        "native_admission": "pending",
+        "num_large_digits": 0,
+        "plaintext_modulus": 16777213,
+        "positive_centered_decode_required": true,
+        "radix": 4,
+        "representation": "coef-radix"
+      },
+      {
+        "capacity": "1427247763155044947592358980815426846827008617",
+        "channels": 5,
+        "context_multiplicative_depth": 4,
+        "default_key_switch": "AUTO",
+        "key_switch_candidates": {
+          "bfv": [
+            "HYBRID",
+            "BV"
+          ],
+          "bgv": [
+            "HYBRID"
+          ]
+        },
+        "lifted_bound": "42535289526864684581082189018171441151",
+        "native_admission": "pending",
+        "num_large_digits": 0,
+        "plaintext_moduli": [
+          1073741827,
+          1073741831,
+          1073741833,
+          1073741839,
+          1073741843
+        ],
+        "representation": "crt30"
+      }
+    ],
+    "D25-d4": [
+      {
+        "coefficient_bound": 390625,
+        "coefficients_per_input": 25,
+        "context_coefficient_bound": 390625,
+        "context_degree_bound": 120,
+        "context_multiplicative_depth": 4,
+        "default_key_switch": "AUTO",
+        "degree_bound": 120,
+        "key_switch_candidates": {
+          "bfv": [
+            "HYBRID",
+            "BV"
+          ],
+          "bgv": [
+            "HYBRID"
+          ]
+        },
+        "native_admission": "pending",
+        "num_large_digits": 0,
+        "plaintext_modulus": 786433,
+        "positive_centered_decode_required": true,
+        "radix": 2,
+        "representation": "coef-binary"
+      },
+      {
+        "coefficient_bound": 6940323,
+        "coefficients_per_input": 13,
+        "context_coefficient_bound": 6940323,
+        "context_degree_bound": 60,
+        "context_multiplicative_depth": 4,
+        "default_key_switch": "AUTO",
+        "degree_bound": 60,
+        "key_switch_candidates": {
+          "bfv": [
+            "HYBRID",
+            "BV"
+          ],
+          "bgv": [
+            "HYBRID"
+          ]
+        },
+        "native_admission": "pending",
+        "num_large_digits": 0,
+        "plaintext_modulus": 16777213,
+        "positive_centered_decode_required": true,
+        "radix": 4,
+        "representation": "coef-radix"
+      },
+      {
+        "capacity": "1427247763155044947592358980815426846827008617",
+        "channels": 5,
+        "context_multiplicative_depth": 4,
+        "default_key_switch": "AUTO",
+        "key_switch_candidates": {
+          "bfv": [
+            "HYBRID",
+            "BV"
+          ],
+          "bgv": [
+            "HYBRID"
+          ]
+        },
+        "lifted_bound": "42535289526864684581082189018171441151",
+        "native_admission": "pending",
+        "num_large_digits": 0,
+        "plaintext_moduli": [
+          1073741827,
+          1073741831,
+          1073741833,
+          1073741839,
+          1073741843
+        ],
+        "representation": "crt30"
+      }
+    ],
+    "F127-add": [
+      {
+        "coefficient_bound": 2,
+        "coefficients_per_input": 127,
+        "context_coefficient_bound": 2,
+        "context_degree_bound": 126,
+        "context_multiplicative_depth": 0,
+        "default_key_switch": "AUTO",
+        "degree_bound": 126,
+        "key_switch_candidates": {
+          "bfv": [
+            "HYBRID"
+          ],
+          "bgv": [
+            "HYBRID"
+          ]
+        },
+        "native_admission": "pending",
+        "num_large_digits": 0,
+        "plaintext_modulus": 65537,
+        "positive_centered_decode_required": true,
+        "radix": 2,
+        "representation": "coef-binary"
+      },
+      {
+        "coefficient_bound": 62,
+        "coefficients_per_input": 26,
+        "context_coefficient_bound": 62,
+        "context_degree_bound": 25,
+        "context_multiplicative_depth": 0,
+        "default_key_switch": "AUTO",
+        "degree_bound": 25,
+        "key_switch_candidates": {
+          "bfv": [
+            "HYBRID"
+          ],
+          "bgv": [
+            "HYBRID"
+          ]
+        },
+        "native_admission": "pending",
+        "num_large_digits": 0,
+        "plaintext_modulus": 65537,
+        "positive_centered_decode_required": true,
+        "radix": 32,
+        "representation": "coef-radix"
+      },
+      {
+        "capacity": "1427247763155044947592358980815426846827008617",
+        "channels": 5,
+        "context_multiplicative_depth": 0,
+        "default_key_switch": "AUTO",
+        "key_switch_candidates": {
+          "bfv": [
+            "HYBRID"
+          ],
+          "bgv": [
+            "HYBRID"
+          ]
+        },
+        "lifted_bound": "340282366920938463463374607431768211452",
+        "native_admission": "pending",
+        "num_large_digits": 0,
+        "plaintext_moduli": [
+          1073741827,
+          1073741831,
+          1073741833,
+          1073741839,
+          1073741843
+        ],
+        "representation": "crt30"
+      }
+    ],
+    "F127-mul": [
+      {
+        "coefficient_bound": 127,
+        "coefficients_per_input": 127,
+        "context_coefficient_bound": 127,
+        "context_degree_bound": 252,
+        "context_multiplicative_depth": 1,
+        "default_key_switch": "AUTO",
+        "degree_bound": 252,
+        "key_switch_candidates": {
+          "bfv": [
+            "HYBRID"
+          ],
+          "bgv": [
+            "HYBRID"
+          ]
+        },
+        "native_admission": "pending",
+        "num_large_digits": 0,
+        "plaintext_modulus": 65537,
+        "positive_centered_decode_required": true,
+        "radix": 2,
+        "representation": "coef-binary"
+      },
+      {
+        "coefficient_bound": 24986,
+        "coefficients_per_input": 26,
+        "context_coefficient_bound": 24986,
+        "context_degree_bound": 50,
+        "context_multiplicative_depth": 1,
+        "default_key_switch": "AUTO",
+        "degree_bound": 50,
+        "key_switch_candidates": {
+          "bfv": [
+            "HYBRID"
+          ],
+          "bgv": [
+            "HYBRID"
+          ]
+        },
+        "native_admission": "pending",
+        "num_large_digits": 0,
+        "plaintext_modulus": 65537,
+        "positive_centered_decode_required": true,
+        "radix": 32,
+        "representation": "coef-radix"
+      },
+      {
+        "capacity": "1897138213761282923841703062539709913406456773731236518844537835694941952469592629",
+        "channels": 9,
+        "context_multiplicative_depth": 1,
+        "default_key_switch": "AUTO",
+        "key_switch_candidates": {
+          "bfv": [
+            "HYBRID"
+          ],
+          "bgv": [
+            "HYBRID"
+          ]
+        },
+        "lifted_bound": "28948022309329048855892746252171976962636931432568264082937646787114745987076",
+        "native_admission": "pending",
+        "num_large_digits": 0,
+        "plaintext_moduli": [
+          1073741827,
+          1073741831,
+          1073741833,
+          1073741839,
+          1073741843,
+          1073741857,
+          1073741891,
+          1073741909,
+          1073741939
+        ],
+        "representation": "crt30"
+      }
+    ],
+    "I63-add": [
+      {
+        "coefficient_bound": 2,
+        "coefficients_per_input": 63,
+        "context_coefficient_bound": 2,
+        "context_degree_bound": 62,
+        "context_multiplicative_depth": 0,
+        "default_key_switch": "AUTO",
+        "degree_bound": 62,
+        "key_switch_candidates": {
+          "bfv": [
+            "HYBRID"
+          ],
+          "bgv": [
+            "HYBRID"
+          ]
+        },
+        "native_admission": "pending",
+        "num_large_digits": 0,
+        "plaintext_modulus": 65537,
+        "positive_centered_decode_required": true,
+        "radix": 2,
+        "representation": "coef-binary"
+      },
+      {
+        "coefficient_bound": 62,
+        "coefficients_per_input": 13,
+        "context_coefficient_bound": 62,
+        "context_degree_bound": 12,
+        "context_multiplicative_depth": 0,
+        "default_key_switch": "AUTO",
+        "degree_bound": 12,
+        "key_switch_candidates": {
+          "bfv": [
+            "HYBRID"
+          ],
+          "bgv": [
+            "HYBRID"
+          ]
+        },
+        "native_admission": "pending",
+        "num_large_digits": 0,
+        "plaintext_modulus": 65537,
+        "positive_centered_decode_required": true,
+        "radix": 32,
+        "representation": "coef-radix"
+      },
+      {
+        "capacity": "1237940061190888981614559421",
+        "channels": 3,
+        "context_multiplicative_depth": 0,
+        "default_key_switch": "AUTO",
+        "key_switch_candidates": {
+          "bfv": [
+            "HYBRID"
+          ],
+          "bgv": [
+            "HYBRID"
+          ]
+        },
+        "lifted_bound": "18446744073709551614",
+        "native_admission": "pending",
+        "num_large_digits": 0,
+        "plaintext_moduli": [
+          1073741827,
+          1073741831,
+          1073741833
+        ],
+        "representation": "crt30"
+      }
+    ],
+    "I63-mul": [
+      {
+        "coefficient_bound": 63,
+        "coefficients_per_input": 63,
+        "context_coefficient_bound": 63,
+        "context_degree_bound": 124,
+        "context_multiplicative_depth": 1,
+        "default_key_switch": "AUTO",
+        "degree_bound": 124,
+        "key_switch_candidates": {
+          "bfv": [
+            "HYBRID"
+          ],
+          "bgv": [
+            "HYBRID"
+          ]
+        },
+        "native_admission": "pending",
+        "num_large_digits": 0,
+        "plaintext_modulus": 65537,
+        "positive_centered_decode_required": true,
+        "radix": 2,
+        "representation": "coef-binary"
+      },
+      {
+        "coefficient_bound": 12493,
+        "coefficients_per_input": 13,
+        "context_coefficient_bound": 12493,
+        "context_degree_bound": 24,
+        "context_multiplicative_depth": 1,
+        "default_key_switch": "AUTO",
+        "degree_bound": 24,
+        "key_switch_candidates": {
+          "bfv": [
+            "HYBRID"
+          ],
+          "bgv": [
+            "HYBRID"
+          ]
+        },
+        "native_admission": "pending",
+        "num_large_digits": 0,
+        "plaintext_modulus": 65537,
+        "positive_centered_decode_required": true,
+        "radix": 32,
+        "representation": "coef-radix"
+      },
+      {
+        "capacity": "1427247763155044947592358980815426846827008617",
+        "channels": 5,
+        "context_multiplicative_depth": 1,
+        "default_key_switch": "AUTO",
+        "key_switch_candidates": {
+          "bfv": [
+            "HYBRID"
+          ],
+          "bgv": [
+            "HYBRID"
+          ]
+        },
+        "lifted_bound": "85070591730234615847396907784232501249",
+        "native_admission": "pending",
+        "num_large_digits": 0,
+        "plaintext_moduli": [
+          1073741827,
+          1073741831,
+          1073741833,
+          1073741839,
+          1073741843
+        ],
+        "representation": "crt30"
+      }
+    ]
+  },
+  "crt_primes": [
+    1073741827,
+    1073741831,
+    1073741833,
+    1073741839,
+    1073741843,
+    1073741857,
+    1073741891,
+    1073741909,
+    1073741939
+  ],
+  "different_server_and_e2e_winners": "retain both as explicitly named frozen variants",
+  "schema": 1,
+  "selection_metric": "median server evaluation over all six samples from both calibration fixtures, then median direct E2E over both fixtures, then representation and key-switch names, the E2E winner uses E2E first",
+  "worker_budget": "one or four workers for the whole logical request, CRT channels run sequentially under the same process-wide OpenMP limit"
+}

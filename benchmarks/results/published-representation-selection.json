@@ -1,0 +1,2605 @@
+{
+ "derived_export": true,
+ "note": "copy of the calibration file of the linux run for reading. two things differ from the original: one punctuation mark in selection_metric, and the run directory prefix removed from 4 library error messages. the original is bound by the frozen schedule of that run and has the sha256 below. this file is not read by the harness",
+ "original_sha256": "74dd9a452cea44ed0389892fe97c449375f6a2621caf2be0887cd92f8ffcd9a7",
+ "selection": {
+  "groups": {
+   "bfv|D25-d1|1": {
+    "candidates": [
+     {
+      "e2e_median_ms": 53.7309835,
+      "eval_median_ms": 29.003073999999998,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/D25-d1/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/D25-d1/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       53.908076,
+       53.553891
+      ],
+      "per_fixture_eval_median_ms": [
+       28.99703,
+       29.062669
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 49.023121,
+      "eval_median_ms": 24.606982000000002,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/D25-d1/coef-binary-BV/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/D25-d1/coef-binary-BV/key-0-fixture-1.json"
+      ],
+      "key_switch": "BV",
+      "per_fixture_e2e_ms": [
+       48.920311,
+       49.125931
+      ],
+      "per_fixture_eval_median_ms": [
+       24.609681,
+       24.566706
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 53.381150000000005,
+      "eval_median_ms": 28.865987,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/D25-d1/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/D25-d1/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       53.380439,
+       53.381861
+      ],
+      "per_fixture_eval_median_ms": [
+       28.843338,
+       28.888636
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 48.90712,
+      "eval_median_ms": 24.593230499999997,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/D25-d1/coef-radix-BV/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/D25-d1/coef-radix-BV/key-0-fixture-1.json"
+      ],
+      "key_switch": "BV",
+      "per_fixture_e2e_ms": [
+       48.995884,
+       48.818356
+      ],
+      "per_fixture_eval_median_ms": [
+       24.550581,
+       24.594928
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 269.3513935,
+      "eval_median_ms": 146.9078575,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/D25-d1/crt30-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/D25-d1/crt30-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       268.467438,
+       270.235349
+      ],
+      "per_fixture_eval_median_ms": [
+       146.889735,
+       146.950016
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 306.8293415,
+      "eval_median_ms": 162.7726615,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/D25-d1/crt30-BV/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/D25-d1/crt30-BV/key-0-fixture-1.json"
+      ],
+      "key_switch": "BV",
+      "per_fixture_e2e_ms": [
+       306.857569,
+       306.801114
+      ],
+      "per_fixture_eval_median_ms": [
+       162.746972,
+       162.843418
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "BV",
+     "representation": "coef-radix"
+    },
+    "selected": [
+     {
+      "key_switch": "BV",
+      "representation": "coef-radix",
+      "roles": [
+       "server",
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "BV",
+     "representation": "coef-radix"
+    },
+    "status": "PASS"
+   },
+   "bfv|D25-d1|4": {
+    "candidates": [
+     {
+      "e2e_median_ms": 28.081145499999998,
+      "eval_median_ms": 12.1736225,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/D25-d1/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/D25-d1/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       28.126634,
+       28.035657
+      ],
+      "per_fixture_eval_median_ms": [
+       10.578332,
+       14.12507
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 25.0062395,
+      "eval_median_ms": 7.9980135,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/D25-d1/coef-binary-BV/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/D25-d1/coef-binary-BV/key-0-fixture-1.json"
+      ],
+      "key_switch": "BV",
+      "per_fixture_e2e_ms": [
+       24.813468,
+       25.199011
+      ],
+      "per_fixture_eval_median_ms": [
+       8.085816,
+       7.864933
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 26.8372665,
+      "eval_median_ms": 9.891925,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/D25-d1/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/D25-d1/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       26.896596,
+       26.777937
+      ],
+      "per_fixture_eval_median_ms": [
+       9.877373,
+       9.906477
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 25.2071685,
+      "eval_median_ms": 8.282743499999999,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/D25-d1/coef-radix-BV/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/D25-d1/coef-radix-BV/key-0-fixture-1.json"
+      ],
+      "key_switch": "BV",
+      "per_fixture_e2e_ms": [
+       24.989995,
+       25.424342
+      ],
+      "per_fixture_eval_median_ms": [
+       8.286759,
+       8.213669
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 138.14273,
+      "eval_median_ms": 50.229268000000005,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/D25-d1/crt30-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/D25-d1/crt30-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       138.793263,
+       137.492197
+      ],
+      "per_fixture_eval_median_ms": [
+       50.016877,
+       50.441659
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 164.9218385,
+      "eval_median_ms": 58.442862,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/D25-d1/crt30-BV/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/D25-d1/crt30-BV/key-0-fixture-1.json"
+      ],
+      "key_switch": "BV",
+      "per_fixture_e2e_ms": [
+       164.581895,
+       165.261782
+      ],
+      "per_fixture_eval_median_ms": [
+       58.235344,
+       58.65038
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "BV",
+     "representation": "coef-binary"
+    },
+    "selected": [
+     {
+      "key_switch": "BV",
+      "representation": "coef-binary",
+      "roles": [
+       "server",
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "BV",
+     "representation": "coef-binary"
+    },
+    "status": "PASS"
+   },
+   "bfv|D25-d2|1": {
+    "candidates": [
+     {
+      "e2e_median_ms": 93.82292050000001,
+      "eval_median_ms": 57.8095755,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/D25-d2/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/D25-d2/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       93.769971,
+       93.87587
+      ],
+      "per_fixture_eval_median_ms": [
+       57.812966,
+       57.803431
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 85.1448245,
+      "eval_median_ms": 49.178174999999996,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/D25-d2/coef-binary-BV/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/D25-d2/coef-binary-BV/key-0-fixture-1.json"
+      ],
+      "key_switch": "BV",
+      "per_fixture_e2e_ms": [
+       85.13843,
+       85.151219
+      ],
+      "per_fixture_eval_median_ms": [
+       49.1984,
+       49.098139
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 93.549603,
+      "eval_median_ms": 57.725032999999996,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/D25-d2/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/D25-d2/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       93.572653,
+       93.526553
+      ],
+      "per_fixture_eval_median_ms": [
+       57.721027,
+       57.729039
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 85.730054,
+      "eval_median_ms": 49.4380175,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/D25-d2/coef-radix-BV/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/D25-d2/coef-radix-BV/key-0-fixture-1.json"
+      ],
+      "key_switch": "BV",
+      "per_fixture_e2e_ms": [
+       85.830075,
+       85.630033
+      ],
+      "per_fixture_eval_median_ms": [
+       49.432794,
+       49.443241
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 473.580666,
+      "eval_median_ms": 293.502393,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/D25-d2/crt30-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/D25-d2/crt30-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       472.630536,
+       474.530796
+      ],
+      "per_fixture_eval_median_ms": [
+       293.395461,
+       293.526109
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 541.1368925,
+      "eval_median_ms": 326.2027535,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/D25-d2/crt30-BV/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/D25-d2/crt30-BV/key-0-fixture-1.json"
+      ],
+      "key_switch": "BV",
+      "per_fixture_e2e_ms": [
+       540.842743,
+       541.431042
+      ],
+      "per_fixture_eval_median_ms": [
+       326.084179,
+       326.321328
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "BV",
+     "representation": "coef-binary"
+    },
+    "selected": [
+     {
+      "key_switch": "BV",
+      "representation": "coef-binary",
+      "roles": [
+       "server",
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "BV",
+     "representation": "coef-binary"
+    },
+    "status": "PASS"
+   },
+   "bfv|D25-d2|4": {
+    "candidates": [
+     {
+      "e2e_median_ms": 44.34666,
+      "eval_median_ms": 19.979060500000003,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/D25-d2/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/D25-d2/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       44.672602,
+       44.020718
+      ],
+      "per_fixture_eval_median_ms": [
+       27.813602,
+       19.744852
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 41.811905499999995,
+      "eval_median_ms": 16.4280445,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/D25-d2/coef-binary-BV/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/D25-d2/coef-binary-BV/key-0-fixture-1.json"
+      ],
+      "key_switch": "BV",
+      "per_fixture_e2e_ms": [
+       41.529624,
+       42.094187
+      ],
+      "per_fixture_eval_median_ms": [
+       16.419176,
+       16.691599
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 46.4085455,
+      "eval_median_ms": 25.5309635,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/D25-d2/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/D25-d2/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       47.444451,
+       45.37264
+      ],
+      "per_fixture_eval_median_ms": [
+       23.446975,
+       27.614952
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 41.189400500000005,
+      "eval_median_ms": 16.037515,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/D25-d2/coef-radix-BV/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/D25-d2/coef-radix-BV/key-0-fixture-1.json"
+      ],
+      "key_switch": "BV",
+      "per_fixture_e2e_ms": [
+       41.41407,
+       40.964731
+      ],
+      "per_fixture_eval_median_ms": [
+       15.856847,
+       16.218183
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 230.712944,
+      "eval_median_ms": 108.512509,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/D25-d2/crt30-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/D25-d2/crt30-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       234.696808,
+       226.72908
+      ],
+      "per_fixture_eval_median_ms": [
+       117.324778,
+       99.70024
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 276.0916385,
+      "eval_median_ms": 120.3415265,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/D25-d2/crt30-BV/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/D25-d2/crt30-BV/key-0-fixture-1.json"
+      ],
+      "key_switch": "BV",
+      "per_fixture_e2e_ms": [
+       276.842623,
+       275.340654
+      ],
+      "per_fixture_eval_median_ms": [
+       120.23787,
+       120.445183
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "BV",
+     "representation": "coef-radix"
+    },
+    "selected": [
+     {
+      "key_switch": "BV",
+      "representation": "coef-radix",
+      "roles": [
+       "server",
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "BV",
+     "representation": "coef-radix"
+    },
+    "status": "PASS"
+   },
+   "bfv|D25-d4|1": {
+    "candidates": [
+     {
+      "e2e_median_ms": 174.33989350000002,
+      "eval_median_ms": 115.49976050000001,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/D25-d4/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/D25-d4/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       174.193177,
+       174.48661
+      ],
+      "per_fixture_eval_median_ms": [
+       115.449555,
+       115.568214
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 157.3671705,
+      "eval_median_ms": 98.641381,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/D25-d4/coef-binary-BV/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/D25-d4/coef-binary-BV/key-0-fixture-1.json"
+      ],
+      "key_switch": "BV",
+      "per_fixture_e2e_ms": [
+       157.499175,
+       157.235166
+      ],
+      "per_fixture_eval_median_ms": [
+       98.606228,
+       98.664396
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 174.7041295,
+      "eval_median_ms": 115.65697850000001,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/D25-d4/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/D25-d4/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       174.779994,
+       174.628265
+      ],
+      "per_fixture_eval_median_ms": [
+       115.699453,
+       115.614504
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 157.43860899999999,
+      "eval_median_ms": 98.38649649999999,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/D25-d4/coef-radix-BV/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/D25-d4/coef-radix-BV/key-0-fixture-1.json"
+      ],
+      "key_switch": "BV",
+      "per_fixture_e2e_ms": [
+       157.722853,
+       157.154365
+      ],
+      "per_fixture_eval_median_ms": [
+       98.440517,
+       98.364824
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 885.570468,
+      "eval_median_ms": 587.496832,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/D25-d4/crt30-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/D25-d4/crt30-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       883.91389,
+       887.227046
+      ],
+      "per_fixture_eval_median_ms": [
+       587.792228,
+       587.192232
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 998.652322,
+      "eval_median_ms": 649.1854735,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/D25-d4/crt30-BV/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/D25-d4/crt30-BV/key-0-fixture-1.json"
+      ],
+      "key_switch": "BV",
+      "per_fixture_e2e_ms": [
+       999.363056,
+       997.941588
+      ],
+      "per_fixture_eval_median_ms": [
+       649.16318,
+       649.207767
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "BV",
+     "representation": "coef-binary"
+    },
+    "selected": [
+     {
+      "key_switch": "BV",
+      "representation": "coef-radix",
+      "roles": [
+       "server"
+      ]
+     },
+     {
+      "key_switch": "BV",
+      "representation": "coef-binary",
+      "roles": [
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "BV",
+     "representation": "coef-radix"
+    },
+    "status": "PASS"
+   },
+   "bfv|D25-d4|4": {
+    "candidates": [
+     {
+      "e2e_median_ms": 82.981146,
+      "eval_median_ms": 47.017335,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/D25-d4/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/D25-d4/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       83.05342,
+       82.908872
+      ],
+      "per_fixture_eval_median_ms": [
+       47.121983,
+       46.912687
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 73.74208300000001,
+      "eval_median_ms": 32.853126,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/D25-d4/coef-binary-BV/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/D25-d4/coef-binary-BV/key-0-fixture-1.json"
+      ],
+      "key_switch": "BV",
+      "per_fixture_e2e_ms": [
+       73.792179,
+       73.691987
+      ],
+      "per_fixture_eval_median_ms": [
+       32.729649,
+       32.976603
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 81.8849845,
+      "eval_median_ms": 43.8831,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/D25-d4/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/D25-d4/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       82.935912,
+       80.834057
+      ],
+      "per_fixture_eval_median_ms": [
+       55.304846,
+       40.415721
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 74.427017,
+      "eval_median_ms": 32.209528500000005,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/D25-d4/coef-radix-BV/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/D25-d4/coef-radix-BV/key-0-fixture-1.json"
+      ],
+      "key_switch": "BV",
+      "per_fixture_e2e_ms": [
+       75.228498,
+       73.625536
+      ],
+      "per_fixture_eval_median_ms": [
+       32.223284,
+       32.195773
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 415.1342965,
+      "eval_median_ms": 204.893346,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/D25-d4/crt30-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/D25-d4/crt30-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       425.675828,
+       404.592765
+      ],
+      "per_fixture_eval_median_ms": [
+       214.855242,
+       199.117975
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 492.9700995,
+      "eval_median_ms": 237.1353335,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/D25-d4/crt30-BV/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/D25-d4/crt30-BV/key-0-fixture-1.json"
+      ],
+      "key_switch": "BV",
+      "per_fixture_e2e_ms": [
+       496.263055,
+       489.677144
+      ],
+      "per_fixture_eval_median_ms": [
+       236.396558,
+       238.087692
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "BV",
+     "representation": "coef-binary"
+    },
+    "selected": [
+     {
+      "key_switch": "BV",
+      "representation": "coef-radix",
+      "roles": [
+       "server"
+      ]
+     },
+     {
+      "key_switch": "BV",
+      "representation": "coef-binary",
+      "roles": [
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "BV",
+     "representation": "coef-radix"
+    },
+    "status": "PASS"
+   },
+   "bfv|F127-add|1": {
+    "candidates": [
+     {
+      "e2e_median_ms": 5.55699,
+      "eval_median_ms": 0.010415500000000001,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/F127-add/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/F127-add/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       5.593971,
+       5.520009
+      ],
+      "per_fixture_eval_median_ms": [
+       0.010356,
+       0.010475
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 5.4958884999999995,
+      "eval_median_ms": 0.010946000000000001,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/F127-add/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/F127-add/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       5.524717,
+       5.46706
+      ],
+      "per_fixture_eval_median_ms": [
+       0.011958,
+       0.009875
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 78.7631035,
+      "eval_median_ms": 0.2257655,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/F127-add/crt30-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/F127-add/crt30-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       78.488784,
+       79.037423
+      ],
+      "per_fixture_eval_median_ms": [
+       0.228054,
+       0.223477
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "selected": [
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-binary",
+      "roles": [
+       "server"
+      ]
+     },
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-radix",
+      "roles": [
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-binary"
+    },
+    "status": "PASS"
+   },
+   "bfv|F127-add|4": {
+    "candidates": [
+     {
+      "e2e_median_ms": 5.6139615,
+      "eval_median_ms": 0.0103605,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/F127-add/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/F127-add/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       5.657437,
+       5.570486
+      ],
+      "per_fixture_eval_median_ms": [
+       0.011117,
+       0.010176
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 5.5905315,
+      "eval_median_ms": 0.010655999999999999,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/F127-add/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/F127-add/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       5.629015,
+       5.552048
+      ],
+      "per_fixture_eval_median_ms": [
+       0.011007,
+       0.010315
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 66.5618745,
+      "eval_median_ms": 0.19518,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/F127-add/crt30-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/F127-add/crt30-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       67.163273,
+       65.960476
+      ],
+      "per_fixture_eval_median_ms": [
+       0.195736,
+       0.194624
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "selected": [
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-binary",
+      "roles": [
+       "server"
+      ]
+     },
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-radix",
+      "roles": [
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-binary"
+    },
+    "status": "PASS"
+   },
+   "bfv|F127-mul|1": {
+    "candidates": [
+     {
+      "e2e_median_ms": 31.7651375,
+      "eval_median_ms": 16.192794499999998,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/F127-mul/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/F127-mul/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       31.820887,
+       31.709388
+      ],
+      "per_fixture_eval_median_ms": [
+       16.185253,
+       16.200336
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 31.917136499999998,
+      "eval_median_ms": 16.0749815,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/F127-mul/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/F127-mul/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       32.17424,
+       31.660033
+      ],
+      "per_fixture_eval_median_ms": [
+       16.096099,
+       16.074486
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 285.68950700000005,
+      "eval_median_ms": 144.6672845,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/F127-mul/crt30-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/F127-mul/crt30-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       285.89332,
+       285.485694
+      ],
+      "per_fixture_eval_median_ms": [
+       144.601681,
+       144.732888
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-binary"
+    },
+    "selected": [
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-radix",
+      "roles": [
+       "server"
+      ]
+     },
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-binary",
+      "roles": [
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "status": "PASS"
+   },
+   "bfv|F127-mul|4": {
+    "candidates": [
+     {
+      "e2e_median_ms": 19.896861,
+      "eval_median_ms": 6.4561795,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/F127-mul/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/F127-mul/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       19.961269,
+       19.832453
+      ],
+      "per_fixture_eval_median_ms": [
+       6.441923,
+       6.606811
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 19.6000625,
+      "eval_median_ms": 6.478754,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/F127-mul/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/F127-mul/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       19.627103,
+       19.573022
+      ],
+      "per_fixture_eval_median_ms": [
+       6.553722,
+       6.351757
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 177.2145935,
+      "eval_median_ms": 61.836751,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/F127-mul/crt30-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/F127-mul/crt30-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       178.308386,
+       176.120801
+      ],
+      "per_fixture_eval_median_ms": [
+       65.242712,
+       58.43079
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "selected": [
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-binary",
+      "roles": [
+       "server"
+      ]
+     },
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-radix",
+      "roles": [
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-binary"
+    },
+    "status": "PASS"
+   },
+   "bfv|I63-add|1": {
+    "candidates": [
+     {
+      "e2e_median_ms": 5.539448999999999,
+      "eval_median_ms": 0.011131499999999999,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/I63-add/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/I63-add/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       5.594232,
+       5.484666
+      ],
+      "per_fixture_eval_median_ms": [
+       0.010826,
+       0.011437
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 5.485002,
+      "eval_median_ms": 0.010055,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/I63-add/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/I63-add/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       5.524777,
+       5.445227
+      ],
+      "per_fixture_eval_median_ms": [
+       0.010055,
+       0.010055
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 47.311796,
+      "eval_median_ms": 0.11559,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/I63-add/crt30-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/I63-add/crt30-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       47.0593,
+       47.564292
+      ],
+      "per_fixture_eval_median_ms": [
+       0.11201,
+       0.11917
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "selected": [
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-radix",
+      "roles": [
+       "server",
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "status": "PASS"
+   },
+   "bfv|I63-add|4": {
+    "candidates": [
+     {
+      "e2e_median_ms": 5.5758095,
+      "eval_median_ms": 0.010641000000000001,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/I63-add/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/I63-add/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       5.638199,
+       5.51342
+      ],
+      "per_fixture_eval_median_ms": [
+       0.010756,
+       0.010526
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 5.504967499999999,
+      "eval_median_ms": 0.010586,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/I63-add/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/I63-add/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       5.537336,
+       5.472599
+      ],
+      "per_fixture_eval_median_ms": [
+       0.010536,
+       0.010636
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 39.8879395,
+      "eval_median_ms": 0.101373,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/I63-add/crt30-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/I63-add/crt30-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       40.337133,
+       39.438746
+      ],
+      "per_fixture_eval_median_ms": [
+       0.103747,
+       0.100292
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "selected": [
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-radix",
+      "roles": [
+       "server",
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "status": "PASS"
+   },
+   "bfv|I63-mul|1": {
+    "candidates": [
+     {
+      "e2e_median_ms": 31.4990705,
+      "eval_median_ms": 16.0761035,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/I63-mul/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/I63-mul/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       31.546452,
+       31.451689
+      ],
+      "per_fixture_eval_median_ms": [
+       16.032813,
+       16.107666
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 31.5618505,
+      "eval_median_ms": 16.102974,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/I63-mul/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/I63-mul/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       31.590929,
+       31.532772
+      ],
+      "per_fixture_eval_median_ms": [
+       16.094717,
+       16.124872
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 158.1280975,
+      "eval_median_ms": 80.761167,
+      "evidence": [
+       "results/pilot-candidates/bfv/1/I63-mul/crt30-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/1/I63-mul/crt30-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       158.138073,
+       158.118122
+      ],
+      "per_fixture_eval_median_ms": [
+       80.935632,
+       80.449557
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-binary"
+    },
+    "selected": [
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-binary",
+      "roles": [
+       "server",
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-binary"
+    },
+    "status": "PASS"
+   },
+   "bfv|I63-mul|4": {
+    "candidates": [
+     {
+      "e2e_median_ms": 19.489566,
+      "eval_median_ms": 6.2899674999999995,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/I63-mul/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/I63-mul/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       19.700144,
+       19.278988
+      ],
+      "per_fixture_eval_median_ms": [
+       6.22856,
+       6.359739
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 19.9394705,
+      "eval_median_ms": 6.339403,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/I63-mul/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/I63-mul/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       20.158687,
+       19.720254
+      ],
+      "per_fixture_eval_median_ms": [
+       6.551308,
+       6.28811
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 98.3820905,
+      "eval_median_ms": 32.591711000000004,
+      "evidence": [
+       "results/pilot-candidates/bfv/4/I63-mul/crt30-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bfv/4/I63-mul/crt30-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       98.412206,
+       98.351975
+      ],
+      "per_fixture_eval_median_ms": [
+       32.690911,
+       32.492511
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-binary"
+    },
+    "selected": [
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-binary",
+      "roles": [
+       "server",
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-binary"
+    },
+    "status": "PASS"
+   },
+   "bgv|D25-d1|1": {
+    "candidates": [
+     {
+      "e2e_median_ms": 33.735414,
+      "eval_median_ms": 12.0400555,
+      "evidence": [
+       "results/pilot-candidates/bgv/1/D25-d1/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/1/D25-d1/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       34.118378,
+       33.35245
+      ],
+      "per_fixture_eval_median_ms": [
+       12.040121,
+       12.038949
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 33.2773715,
+      "eval_median_ms": 12.009239,
+      "evidence": [
+       "results/pilot-candidates/bgv/1/D25-d1/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/1/D25-d1/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       33.270326,
+       33.284417
+      ],
+      "per_fixture_eval_median_ms": [
+       12.014693,
+       12.003785
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 166.451643,
+      "eval_median_ms": 60.356274,
+      "evidence": [
+       "results/pilot-candidates/bgv/1/D25-d1/crt30-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/1/D25-d1/crt30-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       166.741581,
+       166.161705
+      ],
+      "per_fixture_eval_median_ms": [
+       60.327866,
+       60.384682
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "selected": [
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-radix",
+      "roles": [
+       "server",
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "status": "PASS"
+   },
+   "bgv|D25-d1|4": {
+    "candidates": [
+     {
+      "e2e_median_ms": 22.951130499999998,
+      "eval_median_ms": 4.7386595,
+      "evidence": [
+       "results/pilot-candidates/bgv/4/D25-d1/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/4/D25-d1/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       22.974401,
+       22.92786
+      ],
+      "per_fixture_eval_median_ms": [
+       4.874795,
+       4.649134
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 23.031181500000002,
+      "eval_median_ms": 4.663341,
+      "evidence": [
+       "results/pilot-candidates/bgv/4/D25-d1/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/4/D25-d1/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       23.025789,
+       23.036574
+      ],
+      "per_fixture_eval_median_ms": [
+       4.657247,
+       4.669435
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 115.43410800000001,
+      "eval_median_ms": 23.302056,
+      "evidence": [
+       "results/pilot-candidates/bgv/4/D25-d1/crt30-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/4/D25-d1/crt30-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       115.019667,
+       115.848549
+      ],
+      "per_fixture_eval_median_ms": [
+       23.253002,
+       23.35111
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-binary"
+    },
+    "selected": [
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-radix",
+      "roles": [
+       "server"
+      ]
+     },
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-binary",
+      "roles": [
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "status": "PASS"
+   },
+   "bgv|D25-d2|1": {
+    "candidates": [
+     {
+      "e2e_median_ms": 54.31722,
+      "eval_median_ms": 24.4090985,
+      "evidence": [
+       "results/pilot-candidates/bgv/1/D25-d2/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/1/D25-d2/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       54.355643,
+       54.278797
+      ],
+      "per_fixture_eval_median_ms": [
+       24.407977,
+       24.41022
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 54.8357335,
+      "eval_median_ms": 24.458488000000003,
+      "evidence": [
+       "results/pilot-candidates/bgv/1/D25-d2/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/1/D25-d2/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       54.456896,
+       55.214571
+      ],
+      "per_fixture_eval_median_ms": [
+       24.459585,
+       24.457391
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 272.417411,
+      "eval_median_ms": 122.396127,
+      "evidence": [
+       "results/pilot-candidates/bgv/1/D25-d2/crt30-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/1/D25-d2/crt30-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       271.871727,
+       272.963095
+      ],
+      "per_fixture_eval_median_ms": [
+       122.528392,
+       122.288379
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-binary"
+    },
+    "selected": [
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-binary",
+      "roles": [
+       "server",
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-binary"
+    },
+    "status": "PASS"
+   },
+   "bgv|D25-d2|4": {
+    "candidates": [
+     {
+      "e2e_median_ms": 38.212668,
+      "eval_median_ms": 9.384549,
+      "evidence": [
+       "results/pilot-candidates/bgv/4/D25-d2/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/4/D25-d2/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       36.52295,
+       39.902386
+      ],
+      "per_fixture_eval_median_ms": [
+       9.388144,
+       9.380954
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 36.0514685,
+      "eval_median_ms": 9.349260000000001,
+      "evidence": [
+       "results/pilot-candidates/bgv/4/D25-d2/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/4/D25-d2/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       36.226373,
+       35.876564
+      ],
+      "per_fixture_eval_median_ms": [
+       9.374894,
+       9.334803
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 182.355747,
+      "eval_median_ms": 47.215455500000004,
+      "evidence": [
+       "results/pilot-candidates/bgv/4/D25-d2/crt30-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/4/D25-d2/crt30-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       183.461202,
+       181.250292
+      ],
+      "per_fixture_eval_median_ms": [
+       47.228175,
+       47.202736
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "selected": [
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-radix",
+      "roles": [
+       "server",
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "status": "PASS"
+   },
+   "bgv|D25-d4|1": {
+    "candidates": [
+     {
+      "e2e_median_ms": 89.434362,
+      "eval_median_ms": 41.297689500000004,
+      "evidence": [
+       "results/pilot-candidates/bgv/1/D25-d4/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/1/D25-d4/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       89.344737,
+       89.523987
+      ],
+      "per_fixture_eval_median_ms": [
+       41.319277,
+       41.276102
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 88.912283,
+      "eval_median_ms": 41.2269275,
+      "evidence": [
+       "results/pilot-candidates/bgv/1/D25-d4/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/1/D25-d4/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       88.924672,
+       88.899894
+      ],
+      "per_fixture_eval_median_ms": [
+       41.250213,
+       41.224864
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 445.6247265,
+      "eval_median_ms": 206.285471,
+      "evidence": [
+       "results/pilot-candidates/bgv/1/D25-d4/crt30-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/1/D25-d4/crt30-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       445.20701,
+       446.042443
+      ],
+      "per_fixture_eval_median_ms": [
+       206.428672,
+       206.16893
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "selected": [
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-radix",
+      "roles": [
+       "server",
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "status": "PASS"
+   },
+   "bgv|D25-d4|4": {
+    "candidates": [
+     {
+      "e2e_median_ms": 61.4382385,
+      "eval_median_ms": 17.6013825,
+      "evidence": [
+       "results/pilot-candidates/bgv/4/D25-d4/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/4/D25-d4/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       61.696023,
+       61.180454
+      ],
+      "per_fixture_eval_median_ms": [
+       17.604167,
+       17.598598
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 61.445950499999995,
+      "eval_median_ms": 17.86766,
+      "evidence": [
+       "results/pilot-candidates/bgv/4/D25-d4/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/4/D25-d4/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       61.61432,
+       61.277581
+      ],
+      "per_fixture_eval_median_ms": [
+       17.896889,
+       17.838431
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 307.1271485,
+      "eval_median_ms": 89.412273,
+      "evidence": [
+       "results/pilot-candidates/bgv/4/D25-d4/crt30-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/4/D25-d4/crt30-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       307.673599,
+       306.580698
+      ],
+      "per_fixture_eval_median_ms": [
+       89.401111,
+       89.423435
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-binary"
+    },
+    "selected": [
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-binary",
+      "roles": [
+       "server",
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-binary"
+    },
+    "status": "PASS"
+   },
+   "bgv|F127-add|1": {
+    "candidates": [
+     {
+      "e2e_median_ms": 2.420853,
+      "eval_median_ms": 0.0063295,
+      "evidence": [
+       "results/pilot-candidates/bgv/1/F127-add/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/1/F127-add/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       2.451895,
+       2.389811
+      ],
+      "per_fixture_eval_median_ms": [
+       0.006319,
+       0.00634
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 2.443512,
+      "eval_median_ms": 0.0058285,
+      "evidence": [
+       "results/pilot-candidates/bgv/1/F127-add/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/1/F127-add/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       2.50189,
+       2.385134
+      ],
+      "per_fixture_eval_median_ms": [
+       0.005829,
+       0.005828
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 11.764869999999998,
+      "eval_median_ms": 0.0359095,
+      "evidence": [
+       "results/pilot-candidates/bgv/1/F127-add/crt30-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/1/F127-add/crt30-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       11.905888,
+       11.623852
+      ],
+      "per_fixture_eval_median_ms": [
+       0.035994,
+       0.035825
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-binary"
+    },
+    "selected": [
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-radix",
+      "roles": [
+       "server"
+      ]
+     },
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-binary",
+      "roles": [
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "status": "PASS"
+   },
+   "bgv|F127-add|4": {
+    "candidates": [
+     {
+      "e2e_median_ms": 2.40578,
+      "eval_median_ms": 0.006755499999999999,
+      "evidence": [
+       "results/pilot-candidates/bgv/4/F127-add/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/4/F127-add/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       2.449411,
+       2.362149
+      ],
+      "per_fixture_eval_median_ms": [
+       0.007141,
+       0.006339
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 2.4276225,
+      "eval_median_ms": 0.006029,
+      "evidence": [
+       "results/pilot-candidates/bgv/4/F127-add/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/4/F127-add/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       2.481679,
+       2.373566
+      ],
+      "per_fixture_eval_median_ms": [
+       0.006219,
+       0.005929
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 12.113927499999999,
+      "eval_median_ms": 0.030886999999999998,
+      "evidence": [
+       "results/pilot-candidates/bgv/4/F127-add/crt30-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/4/F127-add/crt30-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       12.115925,
+       12.11193
+      ],
+      "per_fixture_eval_median_ms": [
+       0.034903,
+       0.030747
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-binary"
+    },
+    "selected": [
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-radix",
+      "roles": [
+       "server"
+      ]
+     },
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-binary",
+      "roles": [
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "status": "PASS"
+   },
+   "bgv|F127-mul|1": {
+    "candidates": [
+     {
+      "e2e_median_ms": 8.4606925,
+      "eval_median_ms": 2.138376,
+      "evidence": [
+       "results/pilot-candidates/bgv/1/F127-mul/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/1/F127-mul/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       8.638471,
+       8.282914
+      ],
+      "per_fixture_eval_median_ms": [
+       2.126994,
+       2.149758
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 8.1939895,
+      "eval_median_ms": 2.1176395,
+      "evidence": [
+       "results/pilot-candidates/bgv/1/F127-mul/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/1/F127-mul/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       8.215782,
+       8.172197
+      ],
+      "per_fixture_eval_median_ms": [
+       2.122577,
+       2.113112
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "error": "process failed (2): openfhe_wide_bench: openfhe-git/src/pke/lib/schemerns/rns-cryptoparameters.cpp:l.161:PrecomputeCRTTables(): EstimateLogP() failure: expected sizeP [1], but got sizeP [2]\n",
+      "evidence_directory": "results/pilot-candidates/bgv/1/F127-mul/crt30-HYBRID",
+      "key_switch": "HYBRID",
+      "representation": "crt30",
+      "status": "REJECTED"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "selected": [
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-radix",
+      "roles": [
+       "server",
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "status": "PASS"
+   },
+   "bgv|F127-mul|4": {
+    "candidates": [
+     {
+      "e2e_median_ms": 7.1314145,
+      "eval_median_ms": 1.3544464999999999,
+      "evidence": [
+       "results/pilot-candidates/bgv/4/F127-mul/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/4/F127-mul/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       7.169773,
+       7.093056
+      ],
+      "per_fixture_eval_median_ms": [
+       1.251421,
+       1.369639
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 7.119085999999999,
+      "eval_median_ms": 1.335598,
+      "evidence": [
+       "results/pilot-candidates/bgv/4/F127-mul/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/4/F127-mul/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       7.256003,
+       6.982169
+      ],
+      "per_fixture_eval_median_ms": [
+       1.378513,
+       1.312273
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "error": "process failed (2): openfhe_wide_bench: openfhe-git/src/pke/lib/schemerns/rns-cryptoparameters.cpp:l.161:PrecomputeCRTTables(): EstimateLogP() failure: expected sizeP [1], but got sizeP [2]\n",
+      "evidence_directory": "results/pilot-candidates/bgv/4/F127-mul/crt30-HYBRID",
+      "key_switch": "HYBRID",
+      "representation": "crt30",
+      "status": "REJECTED"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "selected": [
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-radix",
+      "roles": [
+       "server",
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "status": "PASS"
+   },
+   "bgv|I63-add|1": {
+    "candidates": [
+     {
+      "e2e_median_ms": 2.4604175,
+      "eval_median_ms": 0.0060739999999999995,
+      "evidence": [
+       "results/pilot-candidates/bgv/1/I63-add/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/1/I63-add/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       2.529161,
+       2.391674
+      ],
+      "per_fixture_eval_median_ms": [
+       0.006229,
+       0.005739
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 2.4134765,
+      "eval_median_ms": 0.0057985,
+      "evidence": [
+       "results/pilot-candidates/bgv/1/I63-add/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/1/I63-add/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       2.485575,
+       2.341378
+      ],
+      "per_fixture_eval_median_ms": [
+       0.006409,
+       0.005559
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 7.1628625,
+      "eval_median_ms": 0.020541,
+      "evidence": [
+       "results/pilot-candidates/bgv/1/I63-add/crt30-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/1/I63-add/crt30-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       7.175872,
+       7.149853
+      ],
+      "per_fixture_eval_median_ms": [
+       0.0201,
+       0.020982
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "selected": [
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-radix",
+      "roles": [
+       "server",
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "status": "PASS"
+   },
+   "bgv|I63-add|4": {
+    "candidates": [
+     {
+      "e2e_median_ms": 2.484789,
+      "eval_median_ms": 0.0062545,
+      "evidence": [
+       "results/pilot-candidates/bgv/4/I63-add/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/4/I63-add/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       2.519967,
+       2.449611
+      ],
+      "per_fixture_eval_median_ms": [
+       0.00629,
+       0.005959
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 2.3942725,
+      "eval_median_ms": 0.006069,
+      "evidence": [
+       "results/pilot-candidates/bgv/4/I63-add/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/4/I63-add/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       2.443121,
+       2.345424
+      ],
+      "per_fixture_eval_median_ms": [
+       0.006089,
+       0.005789
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 7.0197605,
+      "eval_median_ms": 0.020805999999999998,
+      "evidence": [
+       "results/pilot-candidates/bgv/4/I63-add/crt30-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/4/I63-add/crt30-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       7.028268,
+       7.011253
+      ],
+      "per_fixture_eval_median_ms": [
+       0.021052,
+       0.020621
+      ],
+      "representation": "crt30",
+      "status": "PASS"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "selected": [
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-radix",
+      "roles": [
+       "server",
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "status": "PASS"
+   },
+   "bgv|I63-mul|1": {
+    "candidates": [
+     {
+      "e2e_median_ms": 8.241256,
+      "eval_median_ms": 2.116067,
+      "evidence": [
+       "results/pilot-candidates/bgv/1/I63-mul/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/1/I63-mul/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       8.285528,
+       8.196984
+      ],
+      "per_fixture_eval_median_ms": [
+       2.125111,
+       2.102206
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 8.329534500000001,
+      "eval_median_ms": 2.1122515,
+      "evidence": [
+       "results/pilot-candidates/bgv/1/I63-mul/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/1/I63-mul/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       8.35295,
+       8.306119
+      ],
+      "per_fixture_eval_median_ms": [
+       2.118891,
+       2.106172
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "error": "process failed (2): openfhe_wide_bench: openfhe-git/src/pke/lib/schemerns/rns-cryptoparameters.cpp:l.161:PrecomputeCRTTables(): EstimateLogP() failure: expected sizeP [1], but got sizeP [2]\n",
+      "evidence_directory": "results/pilot-candidates/bgv/1/I63-mul/crt30-HYBRID",
+      "key_switch": "HYBRID",
+      "representation": "crt30",
+      "status": "REJECTED"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-binary"
+    },
+    "selected": [
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-radix",
+      "roles": [
+       "server"
+      ]
+     },
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-binary",
+      "roles": [
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "status": "PASS"
+   },
+   "bgv|I63-mul|4": {
+    "candidates": [
+     {
+      "e2e_median_ms": 7.2406395,
+      "eval_median_ms": 1.4565359999999998,
+      "evidence": [
+       "results/pilot-candidates/bgv/4/I63-mul/coef-binary-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/4/I63-mul/coef-binary-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       7.309994,
+       7.171285
+      ],
+      "per_fixture_eval_median_ms": [
+       1.456791,
+       1.456281
+      ],
+      "representation": "coef-binary",
+      "status": "PASS"
+     },
+     {
+      "e2e_median_ms": 7.0292655,
+      "eval_median_ms": 1.258912,
+      "evidence": [
+       "results/pilot-candidates/bgv/4/I63-mul/coef-radix-HYBRID/key-0-fixture-0.json",
+       "results/pilot-candidates/bgv/4/I63-mul/coef-radix-HYBRID/key-0-fixture-1.json"
+      ],
+      "key_switch": "HYBRID",
+      "per_fixture_e2e_ms": [
+       7.10858,
+       6.949951
+      ],
+      "per_fixture_eval_median_ms": [
+       1.27114,
+       1.254866
+      ],
+      "representation": "coef-radix",
+      "status": "PASS"
+     },
+     {
+      "error": "process failed (2): openfhe_wide_bench: openfhe-git/src/pke/lib/schemerns/rns-cryptoparameters.cpp:l.161:PrecomputeCRTTables(): EstimateLogP() failure: expected sizeP [1], but got sizeP [2]\n",
+      "evidence_directory": "results/pilot-candidates/bgv/4/I63-mul/crt30-HYBRID",
+      "key_switch": "HYBRID",
+      "representation": "crt30",
+      "status": "REJECTED"
+     }
+    ],
+    "e2e_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "selected": [
+     {
+      "key_switch": "HYBRID",
+      "representation": "coef-radix",
+      "roles": [
+       "server",
+       "e2e"
+      ]
+     }
+    ],
+    "server_winner": {
+     "key_switch": "HYBRID",
+     "representation": "coef-radix"
+    },
+    "status": "PASS"
+   }
+  },
+  "selection_metric": "median server evaluation over all six samples from both calibration fixtures, then median direct E2E over both fixtures, then representation and key-switch names, the E2E winner uses E2E first",
+  "status": "PASS"
+ }
+}

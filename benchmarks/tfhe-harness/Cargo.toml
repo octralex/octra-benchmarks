@@ -1,0 +1,19 @@
+[package]
+name = "pvac-comparison-tfhe"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[features]
+default = []
+avx512 = ["tfhe/avx512"]
+
+[dependencies]
+tfhe = { path = "../tfhe-rs-e8f3926bb53d7eea95e8a7f581f60aae1c7aba16/tfhe", default-features = false, features = ["integer"] }
+rayon = "1"
+serde_json = "1"
+libc = "0.2"
+
+[profile.release]
+codegen-units = 1
+lto = "thin"
